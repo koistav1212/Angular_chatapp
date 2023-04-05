@@ -35,10 +35,10 @@ exports.newConversation = async (request, response)=>{
 exports.getConversation =async(request, response) =>{
     try {
 
-        const senderId = request.body.senderId;
-        const reciverId = request.body.reciverId;
+  //      const senderId = request.body.senderId;
+//        const reciverId = request.body.reciverId;
 
-        let conversation = await Conversation.findOne({members: {$all: [reciverId, senderId] }})
+        let conversation = await Conversation.find({})
         return response.status(200).json(conversation);
     } catch (error) {
         return response.status(500).json(error.message);

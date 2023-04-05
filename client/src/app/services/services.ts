@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import io from 'socket.io-client';
+import { switchMap } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 const baseUrl = 'http://localhost:5000/';
 const socketUrl="http://localhost:5000/";
@@ -10,17 +11,27 @@ const socketUrl="http://localhost:5000/";
 })
 export class services {
 public currUser:any={}
-  constructor(private http: HttpClient,private afAuth:AngularFireAuth) { }
+tmpUID:any
+  constructor(private http: HttpClient,private afAuth:AngularFireAuth) { 
+     
 
-  getCurrUser()
+  }
+  async getUID():Promise<Observable<any>>
   {
-this.afAuth.authState.subscribe((afUser:any)=>{
-  console.log(afUser)
-this.http.get(baseUrl+"getUserbyID/"+afUser.uid).subscribe((user:any)=>{
-  
-this.currUser=user.user
-})
-})
+    return this.afAuth.authState.pipe(
+      switchMap((afUser) => {
+        // Inner observable
+        return  this.http.get(baseUrl+"getUserbyID/"+afUser.uid);
+      })
+    
+    );
+  }
+  async getCurrUser()
+  {
+   return await this.afAuth.authState.subscribe((afUser:any)=>{
+        this.http.get(baseUrl+"getUserbyID/"+afUser.uid)
+    })
+
   }
 setCurrUser(data)
 {

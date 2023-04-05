@@ -42,11 +42,13 @@ export class SidebarComponent implements OnInit {
   constructor(private services:services,private afAuth:AngularFireAuth) {}
 
 
-  ngOnInit() {
-    
-  this.services.getCurrUser();
+  async ngOnInit() {
+ (await this.services.getUID()).subscribe((res:any)=>{
+  console.log(res)
+ })
     this.getAllUsers()
     this.getAllConversation();
+    
   }
   getAllUsers(){
     this.services.getUsers().subscribe((res:any)=>{
@@ -56,9 +58,10 @@ export class SidebarComponent implements OnInit {
   }
   getAllConversation(){
     this.services.getAllConversation().subscribe((res:any)=>{
-      console.log(res)
+      
       if(res)
-      this.conversations=res.userList
+      this.conversations=res
+      console.log(this.conversations)
     })  
   }
   connect(userId:any){
@@ -73,6 +76,11 @@ export class SidebarComponent implements OnInit {
       prvConnect.push(userId)
       this.services.userUpdate({conversations:prvConv,connections:prvConnect},this.services.currUser._id).subscribe((res:any)=>{
         console.log(res)
+        
+  this.services.getCurrUser();
+        this.getAllConversation();
+        
+    console.log(this.services.currUser)
       })
     })
   }

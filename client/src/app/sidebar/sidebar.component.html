@@ -1,0 +1,60 @@
+<div id="sidebar">
+  <div id="row1">
+      <mat-tab-group [@.disabled]="true">
+        <mat-tab label="Messages">
+          <div id="searchBox">
+            <img width="19" src="../../assets/images/searchIcon.svg" />
+            <input [(ngModel)]="searchText" type="text" placeholder="Search or start the new chat" />
+          </div>
+          <div id="sidebarContent">
+            <!-- <div id="noConversations">All chats are archived</div> -->
+
+            <div class="conversation" *ngFor="
+        let conversation of !searchText ? conversations : filteredConversations
+      " (click)="conversationClicked.emit(conversation)">
+              <div class="picture">
+                <img src="../../assets/images/noPic.svg" />
+              </div>
+              <div class="content">
+                <div class="conversationHeader">
+                  <div class="name">{{ conversation.name }}</div>
+                  <div class="time">{{ conversation.time }}</div>
+                </div>
+                <div class="message">
+                  <img *ngIf="!conversation.latestMessageRead" src="../../assets/images/doubleTick.svg" />
+                  <img *ngIf="conversation.latestMessageRead" src="../../assets/images/doubleTickBlue.svg" />
+                  {{ conversation.latestMessage }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Available Users">
+          <div id="searchBox">
+            <img width="19" src="../../assets/images/searchIcon.svg" />
+            <input [(ngModel)]="searchText" type="text" placeholder="Search or start the new chat" />
+          </div>
+          <div id="sidebarContent">
+            <!-- <div id="noConversations">All chats are archived</div> -->
+
+            <div class="conversation" *ngFor="let user of !searchText ? allUsers : filteredConversations">
+              <div class="picture">
+                <img src="../../assets/images/noPic.svg" />
+              </div>
+              <div class="content">
+                <div class="conversationHeader">
+                  <div class="name">{{ user.userName }}</div>
+                  <button (click)="connect(user._id)"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="My Profile">
+
+        </mat-tab>
+      </mat-tab-group>
+     
+    </div>
+    
+</div>

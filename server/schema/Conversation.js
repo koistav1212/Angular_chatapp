@@ -2,9 +2,7 @@ const mongoose = require("mongoose");
 const bcryptjs = require("bcryptjs");
 
 const ConversationSchema = new mongoose.Schema({
-    members: {
-        type: Array
-    },
+    members:{},
    message: [{
     
   }],

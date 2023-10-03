@@ -6,11 +6,18 @@ exports.newMessage = async (request, response) => {
         const newMessage = new Message(request.body);
         
         const conversation = await Conversation.findOne({ _id: request.body.conversationId })
-        console.log(conversation);
-        const prvMsg=conversation.message;
+        if(conversation)
+       {// console.log(conversation);
+        let prvMsg=[]
+        if(conversation)
+         prvMsg=conversation.message;
         prvMsg.push(request.body)
         await Conversation.findByIdAndUpdate(request.body.conversationId,{message:prvMsg})
-        return response.status(200).json("Message has been sent successfully");
+        return response.status(200).json(prvMsg);}
+        else{
+            
+        return response.status(500).json("Conv Not found");
+        }
     } catch (error) {
         return response.status(500).json(error.message);
     }
@@ -20,7 +27,7 @@ exports.newMessage = async (request, response) => {
 exports.getMessages = async (request, response) => {
     try {
 
-        const messages = await Message.find({ conversationId: request.params.id }).exec();
+        const messages = await Conversation.findOne({ _id: request.params.id });
         //console.log(conversationId);
         //console.log(messages);
         return response.status(200).json(messages);

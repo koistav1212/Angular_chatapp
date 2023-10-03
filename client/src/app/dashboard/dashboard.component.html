@@ -6,7 +6,7 @@
     (conversationClicked)="onConversationSelected($event)"
   ></app-sidebar>
   <div id="chat">
-    <div id="chatPlaceholder" *ngIf="!conversation">
+    <div id="chatPlaceholder" *ngIf="!conversation.members">
       <img width="400" src="../assets/images/phoneIcon.png" />
       <h2>Keep your phone connected</h2>
       <p>
@@ -18,6 +18,6 @@
       <p>WhatsApp is available for Mac. <a href="#">Get it here</a></p>
     </div>
 
-    <app-chat [conversation]="conversation" ></app-chat>
+    <app-chat *ngIf="conversation.members" [conversation]="conversation" ></app-chat>
   </div>
 </div>

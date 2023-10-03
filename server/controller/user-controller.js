@@ -32,8 +32,8 @@ exports.createUser = async (req, res) => {
 exports.userLogin = async (req, res) => {
     const { emailId, password } = req.body;
 
-    const user = await userSchema.findOne({ emailId }).select("+password");
-    console.log(user)
+    const user = await userSchema.findOne({ emailId });
+    console.log(user) 
     if (!user) {
         res.status(401).json({
             success: false,
@@ -49,7 +49,7 @@ exports.userLogin = async (req, res) => {
             message: "Invalid email or password"
         })
     }
-
+else
     res.status(200).json({
         success: true,
         user: "user",
@@ -61,7 +61,7 @@ exports.userLogin = async (req, res) => {
 exports.allUsers = async (req, res) => {
 
     const userList = await userSchema.find({  })
-    console.log(userList)
+    
     if (!userList) {
         res.status(401).json({
             success: false,
@@ -80,7 +80,7 @@ exports.allUsers = async (req, res) => {
 exports.getUserbyID = async (req, res) => {
 
     const user = await userSchema.findOne({ _id:req.params.id })
-    console.log(user)
+    
     if (!user) {
         res.status(401).json({
             success: false,

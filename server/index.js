@@ -42,7 +42,7 @@ app.use("/",routes)
 // >> StrictQuery
 mongoose.set("strictQuery", false);
 // const url = "mongodb+srv://koustavkanakapd:abcd123@cluster0.cyuge9a.mongodb.net/?retryWrites=true&w=majority";
-const url = "mongodb://localhost:27017";
+const url = "mongodb://127.0.0.1:27017";
 // "mongodb+srv://koustavkanakapd:abcd123@cluster0.cyuge9a.mongodb.net/?retryWrites=true&w=majority";
 //app.use(cors({origin: '*'}));
 app.all("/", (req, res) => {
@@ -70,32 +70,22 @@ mongoose
     console.log(e);
   });
   
-const http = require('http');
-const { Server } = require("socket.io");
-  const server = require("http").createServer(app);
-  server.listen(5000, () => {
-    console.log(`Socket is listening on port 5000`);
-  });
-  
 
 
-  const io= new Server(process.env.PORT, {
-      cors: {
-          origin : "*"
-      }
-  })
 
+  var server = require('http').createServer(app);
+  var io = require('socket.io')(server);
   
-  io.on("connection",(socket)=>{
+  server.listen(5000);
   
-      socket.on("addUsers", userData=>{
-        
-    socket.emit("addUsers", userData);
-      })
-  
-      socket.on("sendMessage", (data) => {
-     
-    socket.emit("message/add", data);
-      })
-  })
+  io.on('connection', (socket) => {
+    console.log('a user connected');
+    socket.on('disconnect', () => {
+      console.log('user disconnected');
+    });
+    socket.on('save-message', (data) => {
+        console.log(data);
+        io.emit('new-message', { message: data });        
+    });
+});
   

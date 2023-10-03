@@ -10,6 +10,7 @@ export class DashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.conversation)
   }
   user=true;
   onConversationSelected(conversation){

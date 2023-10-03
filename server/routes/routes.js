@@ -4,7 +4,7 @@ let route= require("express").Router();
 
 
 route.post("/conversation/add", newConversation);
-route.get("/conversation/get", getConversation);
+route.post("/conversation/get", getConversation);
 
 route.post("/message/add", newMessage);
 route.get("/message/get/:id", getMessages);

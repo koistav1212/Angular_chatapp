@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { services } from '../services/services';
 
 import {MatTabsModule} from '@angular/material/tabs';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -43,11 +43,13 @@ export class SidebarComponent implements OnInit {
 
 
   async ngOnInit() {
- (await this.services.getUID()).subscribe((res:any)=>{
+ (await this.services.getCurrUser()).subscribe((res:any)=>{
   console.log(res)
+  this.services.setCurrUser(res.user)
+  
+  this.getAllUsers()
+  this.getAllConversation();
  })
-    this.getAllUsers()
-    this.getAllConversation();
     
   }
   getAllUsers(){
@@ -57,30 +59,34 @@ export class SidebarComponent implements OnInit {
     })  
   }
   getAllConversation(){
-    this.services.getAllConversation().subscribe((res:any)=>{
+    this.services.getAllConversation(this.services.currUser).subscribe((res:any)=>{
       
       if(res)
       this.conversations=res
       console.log(this.conversations)
     })  
   }
-  connect(userId:any){
+  connect(userId:any,userName:any,userPic:any){
     console.log(this.services.currUser)
     let prvConv=[]
+    if(this.services.currUser.conversations)
      prvConv=this.services.currUser.conversations;
-    let prvConnect=[]
-    prvConnect=this.services.currUser.connections;
-    this.services.newConversation({reciverId:userId,senderId:this.services.currUser._id}).subscribe((res:any)=>{
+    let senderprvConnect=[]
+    if(this.services.currUser.connections)
+    senderprvConnect=this.services.currUser.connections;
+    this.services.newConversation({reciverId:userId,senderId:this.services.currUser._id,reciverName:userName,reciverPic:userPic,senderName:this.services.currUser.userName
+    ,senderPic:this.services.currUser.userName}).subscribe((res:any)=>{
       console.log(res)
       prvConv.push(res.converstion._id)
-      prvConnect.push(userId)
-      this.services.userUpdate({conversations:prvConv,connections:prvConnect},this.services.currUser._id).subscribe((res:any)=>{
+      senderprvConnect.push(userId)
+      this.services.userUpdate({conversations:prvConv,connections:senderprvConnect},this.services.currUser._id).subscribe((res:any)=>{
         console.log(res)
         
   this.services.getCurrUser();
         this.getAllConversation();
         
-    console.log(this.services.currUser)
+      this.services.userUpdate({conversations:prvConv,connections:senderprvConnect},userId).subscribe((res:any)=>{
+      })
       })
     })
   }

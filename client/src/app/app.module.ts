@@ -16,8 +16,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 import { environment } from 'src/environments/environment';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 @NgModule({
   declarations: [AppComponent, SidebarComponent, ChatComponent, LoginPageComponent, DashboardComponent],
   imports: [
@@ -28,7 +28,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     ReactiveFormsModule,
     PickerModule,HttpClientModule,MatTabsModule, BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule,
+    AngularFireAuthModule
 
   ],
   providers: [],

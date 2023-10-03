@@ -127,8 +127,7 @@
       }
     }
   },
-  "defaultProject": "whatsapp-clone",
-  "cli": {
+ "cli": {
     "analytics": "af854128-1d5a-40a1-bf93-35a9e023f989"
   }
 }

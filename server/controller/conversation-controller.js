@@ -6,17 +6,14 @@ exports.newConversation = async (request, response)=>{
         const senderId = request.body.senderId;
         const reciverId = request.body.reciverId;
 
-       const exist=  await Conversation.findOne({ members: {$all: [reciverId, senderId ] }})
-        if(exist) {
-            response.status(401).json({
-                    success: false,
-                    message: "Conversation Already exist"
-                })
             
-        
-            }         
         const newConversation = new Conversation({
-            members: [senderId, reciverId],
+            members: {senderId:senderId, reciverId:reciverId,
+                reciverName:request.body.reciverName,
+                senderName:request.body.senderName,
+                reciverPic:request.body.reciverPic,
+                senderPic:request.body.senderPic
+            },
             timestamps:Date.now()
         })
 
@@ -37,8 +34,8 @@ exports.getConversation =async(request, response) =>{
 
   //      const senderId = request.body.senderId;
 //        const reciverId = request.body.reciverId;
-
-        let conversation = await Conversation.find({})
+        let conversation = await Conversation.find({_id:{$all:request.body.conversations}})
+       // console.log(conversation)
         return response.status(200).json(conversation);
     } catch (error) {
         return response.status(500).json(error.message);

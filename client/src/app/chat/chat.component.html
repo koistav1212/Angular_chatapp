@@ -2,10 +2,10 @@
   <div id="header">
     <div class="avatarSection">
       <div class="picture">
-        <img src="../../assets/images/noPic.svg" />
+        <img src="{{conversation.members.reciverPic}}" />
       </div>
 
-      <div class="nameSection">Ayyaz</div>
+      <div class="nameSection">{{conversation.members.reciverName}}</div>
     </div>
     <div class="actionButtons">
       <img src="../../assets/images/attached.svg" />
@@ -15,11 +15,11 @@
   <div id="body">
     <div
       class="message"
-      [ngClass]="{ me: message.me }"
-      *ngFor="let message of conversation.messages"
+      [ngClass]="{ me: message.senderId==service.currUser._id }"
+      *ngFor="let message of messageList"
     >
       <div class="messageContent">
-        {{ message.body }}
+        {{ message.text }}
         <div class="time">{{ message.time }}</div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import io from 'socket.io-client';
 import { switchMap } from 'rxjs/operators';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 const baseUrl = 'http://localhost:5000/';
 const socketUrl="http://localhost:5000/";
 @Injectable({
@@ -16,7 +16,7 @@ tmpUID:any
      
 
   }
-  async getUID():Promise<Observable<any>>
+  async getCurrUser():Promise<Observable<any>>
   {
     return this.afAuth.authState.pipe(
       switchMap((afUser) => {
@@ -26,13 +26,7 @@ tmpUID:any
     
     );
   }
-  async getCurrUser()
-  {
-   return await this.afAuth.authState.subscribe((afUser:any)=>{
-        this.http.get(baseUrl+"getUserbyID/"+afUser.uid)
-    })
 
-  }
 setCurrUser(data)
 {
 this.currUser=data
@@ -50,19 +44,24 @@ getUsers()
 {
 return this.http.get(baseUrl+"geAlltUsers");
 }
-getSocket() {
-  return io.connect(socketUrl);
-} 
 userLogin(userData:any)
 {
   return this.http.post(baseUrl+"user-login",userData);
 }
-getAllConversation()
+getAllConversation(data)
 {
-  return this.http.get(baseUrl+"conversation/get")
+  return this.http.post(baseUrl+"conversation/get",data)
 }
 newConversation(data)
 {
   return this.http.post(baseUrl+"conversation/add",data)
+}
+addMessage(data)
+{
+  return this.http.post(baseUrl+"message/add",data);
+}
+getMessages(id)
+{
+  return this.http.get(baseUrl+"message/get/"+id)
 }
 }

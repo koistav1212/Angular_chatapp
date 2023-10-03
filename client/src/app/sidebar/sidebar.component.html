@@ -13,11 +13,11 @@
         let conversation of !searchText ? conversations : filteredConversations
       " (click)="conversationClicked.emit(conversation)">
               <div class="picture">
-                <img src="../../assets/images/noPic.svg" />
+                <img src="{{conversation.members.reciverPic}}" />
               </div>
               <div class="content">
                 <div class="conversationHeader">
-                  <div class="name">{{ conversation._id }}</div>
+                  <div class="name">{{ conversation.members.reciverName }}</div>
                   <div class="time">{{ conversation.time }}</div>
                 </div>
                 <div class="message">
@@ -45,7 +45,7 @@
             <div class="content">
               <div class="conversationHeader">
                 <div class="name">{{ user.userName }}</div>
-                <button (click)="connect(user._id)"></button>
+                <button (click)="connect(user._id,user.userName,user.userName)"></button>
               </div>
             </div>
           </div>

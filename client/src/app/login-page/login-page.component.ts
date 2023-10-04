@@ -32,10 +32,10 @@ export class LoginPageComponent implements OnInit {
   {
     console.log(this.email)
     this.afAuth.signInWithEmailAndPassword(this.email,this.password).then((user:any)=>{
-console.log(user)
+
     })
 this.services.userLogin({emailId:this.email,password:this.password}).subscribe((res:any)=>{
-  console.log(res)
+
   this.services.setCurrUser(res)
 this.router.navigate(["/dashboard"])
 })

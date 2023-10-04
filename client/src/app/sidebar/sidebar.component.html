@@ -18,12 +18,12 @@
               <div class="content">
                 <div class="conversationHeader">
                   <div class="name">{{ conversation.members.reciverName }}</div>
-                  <div class="time">{{ conversation.time }}</div>
+                  <div class="time">{{ formatTimestamp(conversation.timestamps) }}</div>
                 </div>
                 <div class="message">
                   <img *ngIf="!conversation.latestMessageRead" src="../../assets/images/doubleTick.svg" />
                   <img *ngIf="conversation.latestMessageRead" src="../../assets/images/doubleTickBlue.svg" />
-                  {{ conversation.latestMessage }}
+                  {{ getlastMsg(conversation.message) }}
                 </div>
               </div>
             </div>
@@ -52,7 +52,39 @@
         </div>
       </mat-tab>
       <mat-tab label="My Profile">
-
+        <div class="profile-container">
+          <div class="profile-card">
+            <div class="profile-picture">
+              <img src="https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png" alt="Profile Picture" />
+              <mat-icon class="edit-icon" (click)="editProfilePicture()">edit</mat-icon>
+            </div>
+            <div class="profile-info">
+              <h2>Name</h2>
+              <p>Your Name</p>
+              <mat-icon class="edit-icon" (click)="editName()">edit</mat-icon>
+            </div>
+            <div class="profile-info">
+              <h2>About Me</h2>
+              <p>Your about me text goes here.</p>
+              <mat-icon class="edit-icon" (click)="editAboutMe()">edit</mat-icon>
+            </div>
+            <div class="profile-info">
+              <h2>Created At</h2>
+              <p>Date of Account Creation</p>
+            </div>
+            <div class="profile-info">
+              <h2>My Groups</h2>
+              <div class="scrollable-list">
+                <ul>
+                  <li *ngFor="let group of myGroups">{{ group.name }}</li>
+                </ul>
+              </div>
+              <mat-icon class="edit-icon" (click)="editGroups()">edit</mat-icon>
+            </div>
+          </div>
+        </div>
+        
+        
       </mat-tab>
     </mat-tab-group>
 

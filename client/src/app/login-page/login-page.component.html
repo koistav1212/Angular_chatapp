@@ -65,7 +65,7 @@
         <input type="email" [(ngModel)]="email" class="form-control" id="floatingInput"
             placeholder="name@example.com"
             [class.is-invalid]="userRegistrationForm.get('email').invalid && userRegistrationForm.get('email').touched"
-            class="form-control" formControlName="email" [email]="emailValidation" />
+            class="form-control" formControlName="email" [email]="emailValidation" /> 
 
         <div class="color"
             *ngIf="(userRegistrationForm.get('email').invalid && userRegistrationForm.get('email').touched) || userRegistrationForm.get('email').dirty">

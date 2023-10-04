@@ -59,10 +59,10 @@ else
 
 //get All users
 exports.allUsers = async (req, res) => {
-
-    const userList = await userSchema.find({  })
-    
-    if (!userList) {
+console.log(req.body)
+    const userList = await userSchema.find({ _id: { $ne: req.body.id } });
+  
+    if (!userList || userList.length === 0) {
         res.status(401).json({
             success: false,
             message: "No users found"

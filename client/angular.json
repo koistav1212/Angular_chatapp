@@ -34,6 +34,9 @@
             "scripts": []
           },
           "configurations": {
+            "customConfig": { "optimization": false, "outputHashing": "all", "sourceMap": true,
+             "namedChunks": false, "aot": false, "extractLicenses": true, "vendorChunk": false, "buildOptimizer": false }
+            ,
             "production": {
               "fileReplacements": [
                 {
@@ -43,7 +46,7 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,

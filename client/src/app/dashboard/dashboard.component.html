@@ -2,7 +2,7 @@
   <app-sidebar [ngStyle]="hideMatIcon ? { 'display': 'none' } : {'display':'block'}"
     (conversationClicked)="onConversationSelected($event)"
   ></app-sidebar>
-  <button  mat-fab class="fab-button" (click)="openModal()" [ngStyle]="hideMatIcon ? { 'display': 'none' } : {'display':'block'}">
+  <button  mat-fab class="fab-button" (click)="openModal(userlist)" [ngStyle]="hideMatIcon ? { 'display': 'none' } : {'display':'block'}">
     <mat-icon id="fabicon"  >add</mat-icon>
   </button>
   <div id="chat">
@@ -21,3 +21,7 @@
     <app-chat *ngIf="conversation.members" [conversation]="conversation"   (backClicked)="onChatBackClicked($event)" ></app-chat>
   </div>
 </div>
+
+<ng-template #userlist let-quest>
+  <app-user-list></app-user-list>
+</ng-template>

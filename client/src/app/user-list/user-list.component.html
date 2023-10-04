@@ -1,0 +1,19 @@
+<div class="backdrop">
+  <div class="scrollable-container" >
+    <h2>Add Users</h2>
+    <mat-icon (click)="closeModal()" style="position: absolute;right: 20px; top: 20px;" class="close-icon">cancel</mat-icon>
+    <div class="scrollable-list">
+      <ng-multiselect-dropdown
+  [placeholder]="'Select Users'"
+  [settings]="dropdownSettings"
+  [data]="allUsers"
+  [(ngModel)]="selectedItems"
+  (onSelect)="onItemSelect($event)"
+  (onSelectAll)="onSelectAll($event)"
+>
+</ng-multiselect-dropdown> 
+
+<button class="capsule-button" (click)="createGrp()"> CREATE GROUP</button>
+    </div>
+  </div>
+</div>

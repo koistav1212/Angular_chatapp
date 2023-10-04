@@ -40,9 +40,10 @@ userUpdate(data,id)
   return this.http.put(baseUrl+"updateUserbyID/"+id,data)
 
 }
-getUsers()
+getUsers(data:any)
 {
-return this.http.get(baseUrl+"geAlltUsers");
+  console.log("service",data)
+return this.http.post(baseUrl+"geAlltUsers",{id:data._id});
 }
 userLogin(userData:any)
 {
@@ -63,5 +64,26 @@ addMessage(data)
 getMessages(id)
 {
   return this.http.get(baseUrl+"message/get/"+id)
+}
+
+
+createGroup(groupData: any): Observable<any> {
+  return this.http.post(baseUrl+"group/create", groupData);
+}
+
+getGroups(roomIds: string[]): Observable<any> {
+  return this.http.post(`${baseUrl}/group/getall`, { rooms: roomIds });
+}
+
+addMemberToGroup(groupId: string, memberId: string): Observable<any> {
+  return this.http.post(`${baseUrl}/group/add`, { grpid: groupId, members: memberId });
+}
+
+removeMemberFromGroup(groupId: string, memberId: string): Observable<any> {
+  return this.http.post(`${baseUrl}/group/remove`, { grpid: groupId, memid: memberId });
+}
+
+getGroupMessages(groupId: string): Observable<any> {
+  return this.http.post(`${baseUrl}/group/getmsg`, { grpid: groupId });
 }
 }

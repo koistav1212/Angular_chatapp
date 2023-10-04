@@ -44,17 +44,18 @@ export class SidebarComponent implements OnInit {
 
   async ngOnInit() {
  (await this.services.getCurrUser()).subscribe((res:any)=>{
-  console.log(res)
+ 
   this.services.setCurrUser(res.user)
   
-  this.getAllUsers()
+  this.getAllUsers(res.user)
   this.getAllConversation();
  })
     
   }
-  getAllUsers(){
-    this.services.getUsers().subscribe((res:any)=>{
-      console.log(res)
+  getAllUsers(data:any){
+    console.log("sidebar",data)
+    this.services.getUsers(data).subscribe((res:any)=>{
+      console.log(" sidebar",res)
       this.allUsers=res.userList
     })  
   }
@@ -63,7 +64,7 @@ export class SidebarComponent implements OnInit {
       
       if(res)
       this.conversations=res
-      console.log(this.conversations)
+      console.log("sidebar",this.conversations)
     })  
   }
   connect(userId:any,userName:any,userPic:any){
@@ -95,5 +96,60 @@ export class SidebarComponent implements OnInit {
   openModal()
   {
     console.log("open modal")
+  }
+  getlastMsg(messages:any)
+  {
+    messages.sort((a: { timestamps: number; }, b: { timestamps: number; }) => b.timestamps - a.timestamps);
+
+// Get the last message
+return messages[0].text;
+
+  }
+   formatTimestamp(timestamps: any): string {
+    const today = new Date();
+    const messageDate = new Date(parseInt(timestamps));
+  
+    // Check if the message date is the same day as today
+    if (
+      messageDate.getDate() === today.getDate() &&
+      messageDate.getMonth() === today.getMonth() &&
+      messageDate.getFullYear() === today.getFullYear()
+    ) {
+      // Today: Display time
+      return messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    } else if (
+      messageDate.getDate() === today.getDate() - 1 &&
+      messageDate.getMonth() === today.getMonth() &&
+      messageDate.getFullYear() === today.getFullYear()
+    ) {
+      // Yesterday: Display time
+      return messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    } else {
+      // Other days: Display full date with time
+      return messageDate.toLocaleString(); // This includes both date and time
+    }
+  }
+  
+  myGroups = [
+    { name: 'Group 1' },
+    { name: 'Group 2' },
+    { name: 'Group 3' },
+    // Add more groups as needed
+  ];
+
+  editProfilePicture() {
+    // Handle edit profile picture logic here
+  }
+
+  editName() {
+    // Handle edit name logic here
+  }
+
+  editAboutMe() {
+    // Handle edit about me logic here
+  }
+
+  editGroups() {
+    // Handle edit groups logic here
   }
 }

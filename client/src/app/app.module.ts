@@ -20,14 +20,18 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserListComponent } from './user-list/user-list.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
-  declarations: [AppComponent, SidebarComponent, ChatComponent, LoginPageComponent, DashboardComponent],
+  declarations: [AppComponent, SidebarComponent, ChatComponent, LoginPageComponent, DashboardComponent, UserListComponent],
   imports: [
     BrowserModule,
     CommonModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule,
+    NgbModule,
+    ReactiveFormsModule,NgMultiSelectDropDownModule.forRoot(),
     PickerModule,HttpClientModule,MatTabsModule, BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,

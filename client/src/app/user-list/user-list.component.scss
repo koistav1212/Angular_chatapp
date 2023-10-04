@@ -1,0 +1,74 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Adjust the z-index to ensure it's on top of other content */
+
+  .scrollable-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    position: absolute;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Add a shadow for a card-like effect */
+    max-width: 80%; /* Adjust the maximum width as needed */
+
+    .scrollable-list {
+      margin-top: 20px;
+      height: 45%; /* Limit the maximum height, adjust as needed */
+      overflow-y: auto; /* Enable vertical scrolling if content overflows */
+width: 350px;
+      .conversation {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+
+        .picture {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          overflow: hidden;
+          margin-right: 10px;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .content {
+          flex-grow: 1;
+          overflow: hidden;
+
+          .conversationHeader {
+            .name {
+              font-weight: bold;
+            }
+          }
+        }
+
+        .close-icon {
+          cursor: pointer;
+          font-size: 25px;
+          color: rgb(255, 0, 0); /* Adjust the color as needed */
+        }
+      }
+    }
+  }
+}
+::ng-deep .multiselect-dropdown {
+  height: 375px; /* Adjust the height to your preference */
+  overflow-y: auto; /* Add scroll if content exceeds the height */
+}
+@media (max-width: 600px) {
+    .scrollable-list {
+    height: 40% !important; 
+    overflow-y: auto; 
+width: 280px !important;}
+}

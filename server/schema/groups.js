@@ -6,6 +6,7 @@ const GroupSchema = new mongoose.Schema({
    message: [{  }],
   grpName:String,
   grpPic:String,
+  grpDesc:String,
     timestamps:   String}
 );
 

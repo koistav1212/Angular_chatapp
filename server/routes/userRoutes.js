@@ -3,7 +3,7 @@ const { userLogin, createUser, allUsers,updateUser,getUserbyID } = require("../c
 let route= require("express").Router();
 route.post("/user-login",userLogin);
 route.post("/addUsers", createUser);
-route.get("/geAlltUsers", allUsers);
+route.post("/geAlltUsers", allUsers);
 
 route.get("/getUserbyID/:id", getUserbyID);
 route.put("/updateUserbyID/:id", updateUser);

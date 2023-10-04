@@ -34,6 +34,7 @@ export class ChatComponent implements OnInit {
     "reciverId":this.conversation.members.reciverId,
     "senderId":this.service.currUser._id,
     "text":value,
+    "timestamps":Date.now()
   }
     if (value.length < 1) return false;
     

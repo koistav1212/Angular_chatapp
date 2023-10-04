@@ -9,6 +9,7 @@ const MessageSchema = new mongoose.Schema({
     },
     receiverId: {
         type: String
+        
     },
     text: {
         type: String
@@ -17,9 +18,7 @@ const MessageSchema = new mongoose.Schema({
         type: String
     }
 ,
-timestamps:{
-     type:String
-}
+timestamps:String
 });
 
 module.exports = mongoose.model("Message", MessageSchema);

@@ -6,9 +6,7 @@ const ConversationSchema = new mongoose.Schema({
    message: [{
     
   }],
-    timestamps: {
-         String
-    }}
+    timestamps:   String}
 );
 
 module.exports = mongoose.model("Conversation", ConversationSchema);

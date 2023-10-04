@@ -75,17 +75,18 @@ export class SidebarComponent implements OnInit {
     if(this.services.currUser.connections)
     senderprvConnect=this.services.currUser.connections;
     this.services.newConversation({reciverId:userId,senderId:this.services.currUser._id,reciverName:userName,reciverPic:userPic,senderName:this.services.currUser.userName
-    ,senderPic:this.services.currUser.userName}).subscribe((res:any)=>{
+    ,senderPic:this.services.currUser.userName,timestamps:Date.now()}).subscribe((res:any)=>{
       console.log(res)
       prvConv.push(res.converstion._id)
       senderprvConnect.push(userId)
       this.services.userUpdate({conversations:prvConv,connections:senderprvConnect},this.services.currUser._id).subscribe((res:any)=>{
         console.log(res)
         
-  this.services.getCurrUser();
-        this.getAllConversation();
         
       this.services.userUpdate({conversations:prvConv,connections:senderprvConnect},userId).subscribe((res:any)=>{
+        
+  this.services.getCurrUser();
+  this.getAllConversation();
       })
       })
     })

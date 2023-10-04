@@ -10,6 +10,8 @@ export class ChatComponent implements OnInit {
   @Input() conversation;currConv={};
   messageList=[]
   @Output() onSubmit: EventEmitter<any> = new EventEmitter();
+  @Output() backClicked: EventEmitter<string> = new EventEmitter();
+
   emojiPickerVisible;
   message = '';
   constructor(public service:services) {
@@ -64,5 +66,9 @@ export class ChatComponent implements OnInit {
     this.socket.on('new-message', () => {
       this.getAllMessages();
     });
+  }
+  handleBackClick() {
+    // Emit the "back" event
+    this.backClicked.emit('back');
   }
 }

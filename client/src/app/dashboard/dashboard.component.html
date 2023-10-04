@@ -1,13 +1,13 @@
-<div id="background_header" *ngIf="user"></div>
-<div id="background_body" *ngIf="user"></div>
-
 <div id="chatContainer" *ngIf="user">
-  <app-sidebar
+  <app-sidebar [ngStyle]="hideMatIcon ? { 'display': 'none' } : {'display':'block'}"
     (conversationClicked)="onConversationSelected($event)"
   ></app-sidebar>
+  <button  mat-fab class="fab-button" (click)="openModal()" [ngStyle]="hideMatIcon ? { 'display': 'none' } : {'display':'block'}">
+    <mat-icon id="fabicon"  >add</mat-icon>
+  </button>
   <div id="chat">
     <div id="chatPlaceholder" *ngIf="!conversation.members">
-      <img width="400" src="../assets/images/phoneIcon.png" />
+      <img  src="../assets/images/phoneIcon.png" />
       <h2>Keep your phone connected</h2>
       <p>
         WhatsApp connects your phone to sync messages. To reduce data<br />
@@ -18,6 +18,6 @@
       <p>WhatsApp is available for Mac. <a href="#">Get it here</a></p>
     </div>
 
-    <app-chat *ngIf="conversation.members" [conversation]="conversation" ></app-chat>
+    <app-chat *ngIf="conversation.members" [conversation]="conversation"   (backClicked)="onChatBackClicked($event)" ></app-chat>
   </div>
 </div>

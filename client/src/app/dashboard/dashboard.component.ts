@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
   conversation={};
+  hideMatIcon=false;
+  @ViewChild('fabicon') fabIcon: ElementRef;
   constructor() { }
 
   ngOnInit(): void {
@@ -16,6 +18,13 @@ export class DashboardComponent implements OnInit {
   onConversationSelected(conversation){
     console.log(conversation)
     this.conversation = conversation;
-  }
+    this.hideMatIcon=!this.hideMatIcon;
 
+  }
+  onChatBackClicked(event: string) {
+    // Hide the chat component by setting conversation to null or whatever logic you have
+    this.conversation = {}; // You should replace this with your own logic
+    
+    this.hideMatIcon=!this.hideMatIcon;
+  }
 }

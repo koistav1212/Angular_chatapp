@@ -1,5 +1,6 @@
 <div id="container">
   <div id="header">
+    <mat-icon (click)="backClicked.emit('back')">arrow_left_alt</mat-icon>
     <div class="avatarSection">
       <div class="picture">
         <img src="{{conversation.members.reciverPic}}" />

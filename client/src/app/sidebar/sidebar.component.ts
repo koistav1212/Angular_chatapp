@@ -91,4 +91,9 @@ export class SidebarComponent implements OnInit {
       })
     })
   }
+
+  openModal()
+  {
+    console.log("open modal")
+  }
 }

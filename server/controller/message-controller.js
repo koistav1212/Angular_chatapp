@@ -3,7 +3,6 @@ const Message = require("../schema/Message");
 
 exports.newMessage = async (request, response) => {
     try {
-        const newMessage = new Message(request.body);
         
         const conversation = await Conversation.findOne({ _id: request.body.conversationId })
         if(conversation)

@@ -18,6 +18,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [AppComponent, SidebarComponent, ChatComponent, LoginPageComponent, DashboardComponent],
   imports: [
@@ -28,7 +30,9 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     ReactiveFormsModule,
     PickerModule,HttpClientModule,MatTabsModule, BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    MatButtonModule,
+    MatIconModule,
 
   ],
   providers: [],

@@ -1,17 +1,19 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { services } from '../services/services';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  conversation={};
+  conversation={};conversations=[];
   hideMatIcon=false;
   @ViewChild('fabicon') fabIcon: ElementRef;
-  constructor( public modalService: NgbModal) { }
+  constructor( public modalService: NgbModal,private services:services) { }
 
+  @ViewChild(SidebarComponent) sidebarComponent: SidebarComponent;
   ngOnInit(): void {
     console.log(this.conversation)
   }
@@ -27,7 +29,11 @@ export class DashboardComponent implements OnInit {
     this.conversation = {}; // You should replace this with your own logic
     
     this.hideMatIcon=!this.hideMatIcon;
+    this.sidebarComponent.getAllConversation();
+    this.sidebarComponent.getAllGroups();
   }
+  
+  
   
   openModal(userlist: any) {
     this.modalService.open(userlist, { ariaLabelledBy: 'modal-basic-title', windowClass: 'after-submit-popup',centered:true }).result.then((result) => {

@@ -12,17 +12,19 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class UserListComponent {
   
+  @Output() backClicked: EventEmitter<string> = new EventEmitter();
   constructor(private services:services,private afAuth:AngularFireAuth,private modalService :NgbModal) {}
   allUsers=[]
-  
+  grpName="";grpDesc="";
   dropdownList = [];
   selectedItems = [];
   dropdownSettings = {};
+  grpNameValid: boolean = true;
+  selectedItemsValid: boolean = true;
+
   async ngOnInit() {
     (await this.services.getCurrUser()).subscribe((res:any)=>{
-    
-     
-     this.getAllUsers(res.user)
+      this.getAllUsers(res.user)
     })
        
     this.dropdownList = [
@@ -32,7 +34,6 @@ export class UserListComponent {
       { item_id: 4, item_text: 'Navsari' },
       { item_id: 5, item_text: 'New Delhi' }
     ];
-    this.selectedItems = [  ];
     this.dropdownSettings = {
       singleSelection: false,
       idField: '_id',
@@ -45,9 +46,9 @@ export class UserListComponent {
      }
   
   getAllUsers(data:any){
-    console.log("userList",data)
+  
     this.services.getUsers(data).subscribe((res:any)=>{
-      console.log(" userList",res)
+      
       this.allUsers=res.userList
     })  
   }
@@ -61,8 +62,27 @@ export class UserListComponent {
   onSelectAll(items: any) {
     console.log(items);
   }
-  createGrp()
-  {
-    
+  async createGrp()
+  {    if (this.grpName.trim() === '') {
+    this.grpNameValid = false;
+  } else {
+    this.grpNameValid = true;
+  }
+
+  if (this.selectedItems.length === 0) {
+    this.selectedItemsValid = false;
+  } else {
+    this.selectedItemsValid = true;
+  }
+
+  if (this.grpNameValid && this.selectedItemsValid) {
+    (await (this.services.getCurrUser())).subscribe((res:any)=>{
+      this.selectedItems.push({_id:res.user._id,userName:res.user.userName});
+      this.services.createGroup({members:this.selectedItems,grpName:this.grpName,grpDesc:this.grpDesc,timestamps:Date.now()}).subscribe((res:any)=>{
+        console.log(res);
+      })
+    })
+
+}
   }
 }

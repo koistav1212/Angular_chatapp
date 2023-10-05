@@ -13,6 +13,10 @@ export class SidebarComponent implements OnInit {
   searchText: string;
   conversations=[]
   allUsers=[]
+  params: any = {
+      };
+      
+  imgUrl: string = '';
   get filteredConversations() {
     return this.conversations.filter((conversation) => {
       return (
@@ -46,11 +50,20 @@ export class SidebarComponent implements OnInit {
  (await this.services.getCurrUser()).subscribe((res:any)=>{
  
   this.services.setCurrUser(res.user)
-  
+  this.params={
+    _id:res.user._id,
+    userName:res.user.userName,
+    profilePic:res.user.profilePic,
+    about:res.user.about}
   this.getAllUsers(res.user)
   this.getAllConversation();
+  this.getAllGroups();
+  if(res.user.profilePic.length>0)
+   this.imgUrl=res.user.profilePic
+else
+this.imgUrl='https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png';
  })
-    
+   
   }
   getAllUsers(data:any){
     console.log("sidebar",data)
@@ -64,6 +77,14 @@ export class SidebarComponent implements OnInit {
       
       if(res)
       this.conversations=res
+    })  
+  }
+  getAllGroups()
+  {
+    this.services.getGroups(this.services.currUser.rooms).subscribe((res:any)=>{
+      
+      if(res)
+      this.conversations = [...this.conversations, ...res];
       console.log("sidebar",this.conversations)
     })  
   }
@@ -80,11 +101,11 @@ export class SidebarComponent implements OnInit {
       console.log(res)
       prvConv.push(res.converstion._id)
       senderprvConnect.push(userId)
-      this.services.userUpdate({conversations:prvConv,connections:senderprvConnect},this.services.currUser._id).subscribe((res:any)=>{
+      this.services.updateUserconnections({conversations:prvConv,connections:senderprvConnect},this.services.currUser._id).subscribe((res:any)=>{
         console.log(res)
         
         
-      this.services.userUpdate({conversations:prvConv,connections:senderprvConnect},userId).subscribe((res:any)=>{
+      this.services.updateUserconnections({conversations:prvConv,connections:senderprvConnect},userId).subscribe((res:any)=>{
         
   this.services.getCurrUser();
   this.getAllConversation();
@@ -99,15 +120,19 @@ export class SidebarComponent implements OnInit {
   }
   getlastMsg(messages:any)
   {
-    messages.sort((a: { timestamps: number; }, b: { timestamps: number; }) => b.timestamps - a.timestamps);
+    if(messages.length>0)
+    {messages.sort((a: { timestamps: number; }, b: { timestamps: number; }) => b.timestamps - a.timestamps);
 
 // Get the last message
-return messages[0].text;
+return messages[0].text;}
+return "";
 
   }
-   formatTimestamp(timestamps: any): string {
+   formatTimestamp(messages: any): string {
+    if(messages.length>0){
+    messages.sort((a: { timestamps: number; }, b: { timestamps: number; }) => b.timestamps - a.timestamps);
     const today = new Date();
-    const messageDate = new Date(parseInt(timestamps));
+    const messageDate = new Date(parseInt(messages[0].timestamps));
   
     // Check if the message date is the same day as today
     if (
@@ -127,7 +152,8 @@ return messages[0].text;
     } else {
       // Other days: Display full date with time
       return messageDate.toLocaleString(); // This includes both date and time
-    }
+    }}
+    return "";
   }
   
   myGroups = [
@@ -137,19 +163,37 @@ return messages[0].text;
     // Add more groups as needed
   ];
 
-  editProfilePicture() {
-    // Handle edit profile picture logic here
+ // Initialize params with user data
+
+  onSelectFile(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      this.params.profilePic = event.target.files[0];
+      reader.readAsDataURL(event.target.files[0]);
+
+      reader.onload = (event: any) => {
+        this.imgUrl = event.target.result;
+      };
+    }
   }
 
-  editName() {
-    // Handle edit name logic here
+  submitStudent() {
+    const formData: FormData = new FormData();
+    formData.append('_id', this.params._id);
+    if (this.params.profilePic) {
+      formData.append('profilePic', this.params.profilePic);
+    } else {
+      formData.append('profilePic', '');
+    }
+
+  //  formData.append('profilePic', this.params.profilePic);
+    formData.append('about', this.params.about);   
+     formData.append('userName', this.params.userName);
+
+    this.services.updateUser(formData, this.params._id).subscribe((data: any) => {
+      console.log(data);
+      this.services.setCurrUser(data);
+    });
   }
 
-  editAboutMe() {
-    // Handle edit about me logic here
-  }
-
-  editGroups() {
-    // Handle edit groups logic here
-  }
 }

@@ -85,8 +85,9 @@ right: 20px; /* Adjust the right position as needed */
   #chatContainer {
     flex-direction: column;
   }
-  app-sidebar{
+  mat-tab-group{
     height: 100vh !important;
+    overflow-y: hidden;
   }
   app-chat{
     z-index: 12;

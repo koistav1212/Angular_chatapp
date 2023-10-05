@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
 
+const path = require("path");
 app.use(function (req, res, next) {
 
   // Website you wish to allow to connect
@@ -36,6 +37,7 @@ const routes=require("./routes/routes")
 app.use("/", user);
 app.use("/",routes)
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // use API routes
 // router(app);
 

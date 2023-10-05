@@ -1,4 +1,67 @@
 const userSchema = require("../schema/userSchema");
+const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      const imagesPath = "./uploads/userPics/" + req.params.id;
+  
+      if (!fs.existsSync(imagesPath)) {
+        fs.mkdirSync(imagesPath, { recursive: true });
+      }
+  
+      cb(null, imagesPath);
+    },
+    filename: (req, file, cb) => {
+      const profilePicFilename = "profilePic.jpg"; // Use a consistent filename
+      cb(null, profilePicFilename);
+    },
+  });
+  
+  const upload = multer({
+    storage: storage,
+    limits: { fileSize: 1024 * 1024 * 10 }, // Limit file size to 10MB
+  }).single("profilePic");
+
+
+exports.updateUser = async (req, res) => {
+  upload(req, res, async (err) => {
+    if (err) {
+      res.status(500).json({
+        success: false,
+        message: err.message,
+      });
+    } else {
+      try {
+        const { _id, about } = req.body;
+        const profilePic = req.file ? "/" + req.file.path : ""; // Check if a file was uploaded
+
+        const user = await userSchema.findOneAndUpdate(
+          { _id: _id },
+          {
+            $set: {
+              profilePic: "http://localhost:5000"+profilePic,
+              about: about,
+            },
+          },
+          { new: true }
+        );
+
+        res.status(200).json({
+          success: true,
+          user,
+          message: "User updated successfully!",
+        });
+      } catch (error) {
+        res.status(400).json({
+          success: false,
+          message: error.message,
+        });
+      }
+    }
+  });
+};
 
 // >> Register Admin
 exports.createUser = async (req, res) => {
@@ -97,7 +160,7 @@ exports.getUserbyID = async (req, res) => {
    
 }
 //update user
-exports.updateUser = async (req, res) => {
+exports.updateconnectionsUser = async (req, res) => {
     const {
         connections,
         conversations

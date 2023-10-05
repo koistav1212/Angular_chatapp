@@ -1,0 +1,33 @@
+<div class="profile-container">
+    <div class="profile-card">
+      <div class="profile-picture">
+        <img src="https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png"
+          alt="Profile Picture" />
+        <mat-icon class="edit-icon" (click)="editProfilePicture()">edit</mat-icon>
+      </div>
+      <div class="profile-info">
+        <h2>Group Name</h2>
+        <p>{{conversation.grpName}}</p>
+        <mat-icon class="edit-icon" (click)="editName()">edit</mat-icon>
+      </div>
+      <div class="profile-info">
+        <h2>Group Description</h2>
+        <p>{{conversation.grpDesc}}</p>
+        <mat-icon class="edit-icon" (click)="editAboutMe()">edit</mat-icon>
+      </div>
+      <div class="profile-info">
+        <h2>Created At</h2>
+        <p>Date of Account Creation</p>
+      </div>
+      <div class="profile-info">
+        <h2>Group Members</h2>
+        <div class="scrollable-list">
+          <ul>
+            <li *ngFor="let group of myGroups">{{ group.name }}</li>
+            
+        <mat-icon class="edit-icon" (click)="editGroups()">edit</mat-icon>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>

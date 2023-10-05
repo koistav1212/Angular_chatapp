@@ -2,11 +2,18 @@
   <div id="header">
     <mat-icon (click)="backClicked.emit('back')">arrow_left_alt</mat-icon>
     <div class="avatarSection">
-      <div class="picture">
+      <div class="picture" *ngIf="conversation.grpName==null">
         <img src="{{conversation.members.reciverPic}}" />
       </div>
 
-      <div class="nameSection">{{conversation.members.reciverName}}</div>
+      <div class="nameSection" *ngIf="conversation.grpName==null">{{conversation.members.reciverName}}</div>
+    </div>
+    <div class="avatarSection">
+      <div class="picture" *ngIf="conversation.grpName!=null">
+        <img src="{{conversation.grpPic}}" />
+      </div>
+
+      <div class="nameSection" *ngIf="conversation.grpName!=null">{{conversation.grpName}}</div>
     </div>
     <div class="actionButtons">
       <img src="../../assets/images/attached.svg" />

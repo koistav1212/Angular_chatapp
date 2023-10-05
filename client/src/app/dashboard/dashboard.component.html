@@ -23,5 +23,5 @@
 </div>
 
 <ng-template #userlist let-quest>
-  <app-user-list></app-user-list>
+  <app-user-list (backClicked)="onChatBackClicked($event)" ></app-user-list>
 </ng-template>

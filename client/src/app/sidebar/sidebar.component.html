@@ -9,26 +9,39 @@
         <div id="sidebarContent">
           <!-- <div id="noConversations">All chats are archived</div> -->
 
-          <div class="conversation" *ngFor="
-        let conversation of !searchText ? conversations : filteredConversations
-      " (click)="conversationClicked.emit(conversation)">
-              <div class="picture">
-                <img src="{{conversation.members.reciverPic}}" />
+          <div class="conversation" *ngFor="let conversation of !searchText ? conversations : filteredConversations" (click)="conversationClicked.emit(conversation)">
+            <div class="picture" *ngIf="conversation.grpName == null">
+              <img src="{{ conversation.members.reciverPic }}" />
+            </div>
+            <div class="content" *ngIf="conversation.grpName == null">
+              <div class="conversationHeader">
+                <div class="name">{{ conversation.members.reciverName }}</div>
+                <div class="time">{{ formatTimestamp(conversation.message) }}</div>
               </div>
-              <div class="content">
-                <div class="conversationHeader">
-                  <div class="name">{{ conversation.members.reciverName }}</div>
-                  <div class="time">{{ formatTimestamp(conversation.timestamps) }}</div>
-                </div>
-                <div class="message">
-                  <img *ngIf="!conversation.latestMessageRead" src="../../assets/images/doubleTick.svg" />
-                  <img *ngIf="conversation.latestMessageRead" src="../../assets/images/doubleTickBlue.svg" />
-                  {{ getlastMsg(conversation.message) }}
-                </div>
+              <div class="message">
+                <img *ngIf="!conversation.latestMessageRead" src="../../assets/images/doubleTick.svg" />
+                <img *ngIf="conversation.latestMessageRead" src="../../assets/images/doubleTickBlue.svg" />
+                {{ getlastMsg(conversation.message) }}
+              </div>
+            </div>
+          
+            <div class="picture" *ngIf="conversation.grpName != null">
+              <img src="{{ conversation.grpPic }}" />
+            </div>
+            <div class="content" *ngIf="conversation.grpName != null">
+              <div class="conversationHeader">
+                <div class="name">{{ conversation.grpName }}</div>
+                <div class="time">{{ formatTimestamp(conversation.message) }}</div>
+              </div>
+              <div class="message">
+                <img *ngIf="!conversation.latestMessageRead" src="../../assets/images/doubleTick.svg" />
+                <img *ngIf="conversation.latestMessageRead" src="../../assets/images/doubleTickBlue.svg" />
+                {{ getlastMsg(conversation.message) }}
               </div>
             </div>
           </div>
-        
+          
+        </div>
       </mat-tab>
       <mat-tab label="Available Users">
         <div id="searchBox">
@@ -52,25 +65,37 @@
         </div>
       </mat-tab>
       <mat-tab label="My Profile">
+
         <div class="profile-container">
           <div class="profile-card">
             <div class="profile-picture">
-              <img src="https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png" alt="Profile Picture" />
-              <mat-icon class="edit-icon" (click)="editProfilePicture()">edit</mat-icon>
+              <input
+                type="file"
+                (change)="onSelectFile($event)"
+                class="file-input"
+                #fileInput
+                style="display: none;"
+              />
+              <img
+                [src]="imgUrl"
+                alt="Profile Picture"
+                (click)="fileInput.click()"
+              />
+              <mat-icon class="edit-icon"(click)="fileInput.click()">edit</mat-icon>
             </div>
             <div class="profile-info">
               <h2>Name</h2>
-              <p>Your Name</p>
-              <mat-icon class="edit-icon" (click)="editName()">edit</mat-icon>
+              <textarea [(ngModel)]="params.userName"></textarea>
+              <button class="edit-button" >Edit</button>
             </div>
             <div class="profile-info">
               <h2>About Me</h2>
-              <p>Your about me text goes here.</p>
-              <mat-icon class="edit-icon" (click)="editAboutMe()">edit</mat-icon>
+              <textarea [(ngModel)]="params.about"></textarea>
+              <mat-icon class="edit-icon">edit</mat-icon>
             </div>
             <div class="profile-info">
               <h2>Created At</h2>
-              <p>Date of Account Creation</p>
+              <p>{{ params.createdAt | date: 'medium' }}</p>
             </div>
             <div class="profile-info">
               <h2>My Groups</h2>
@@ -78,17 +103,18 @@
                 <ul>
                   <li *ngFor="let group of myGroups">{{ group.name }}</li>
                 </ul>
-              </div>
-              <mat-icon class="edit-icon" (click)="editGroups()">edit</mat-icon>
+              </div><mat-icon class="edit-icon">edit</mat-icon>
             </div>
+            <button class="capsule-button" (click)="submitStudent()">Save Changes</button>
           </div>
         </div>
         
-        
+
+
       </mat-tab>
     </mat-tab-group>
 
- 
+
   </div>
-  
+
 </div>

@@ -23,8 +23,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserListComponent } from './user-list/user-list.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { GroupInfoComponent } from './group-info/group-info.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 @NgModule({
-  declarations: [AppComponent, SidebarComponent, ChatComponent, LoginPageComponent, DashboardComponent, UserListComponent],
+  declarations: [AppComponent, SidebarComponent, ChatComponent, LoginPageComponent, DashboardComponent, UserListComponent, GroupInfoComponent, UserInfoComponent],
   imports: [
     BrowserModule,
     CommonModule,

@@ -35,9 +35,14 @@ addUser(data)
 {
   return this.http.post(baseUrl+"addUsers",data)
 }
-userUpdate(data,id)
+updateUserconnections(data,id)
 {
-  return this.http.put(baseUrl+"updateUserbyID/"+id,data)
+  return this.http.post(baseUrl+"updateUserconnections/"+id,data)
+
+}
+updateUser(data,id)
+{
+  return this.http.post(baseUrl+"updateUserbyID/"+id,data)
 
 }
 getUsers(data:any)
@@ -72,18 +77,21 @@ createGroup(groupData: any): Observable<any> {
 }
 
 getGroups(roomIds: string[]): Observable<any> {
-  return this.http.post(`${baseUrl}/group/getall`, { rooms: roomIds });
+  return this.http.post(`${baseUrl}group/getall`, { rooms: roomIds });
 }
 
+addMsgToGroup(groupId: string, msg: any): Observable<any> {
+  return this.http.post(`${baseUrl}group/addgrpmsg`, { grpid: groupId, msg:msg });
+}
 addMemberToGroup(groupId: string, memberId: string): Observable<any> {
-  return this.http.post(`${baseUrl}/group/add`, { grpid: groupId, members: memberId });
+  return this.http.post(`${baseUrl}group/add`, { grpid: groupId, members: memberId });
 }
 
 removeMemberFromGroup(groupId: string, memberId: string): Observable<any> {
-  return this.http.post(`${baseUrl}/group/remove`, { grpid: groupId, memid: memberId });
+  return this.http.post(`${baseUrl}group/remove`, { grpid: groupId, memid: memberId });
 }
 
 getGroupMessages(groupId: string): Observable<any> {
-  return this.http.post(`${baseUrl}/group/getmsg`, { grpid: groupId });
+  return this.http.post(`${baseUrl}group/getmsg`, { grpid: groupId });
 }
 }

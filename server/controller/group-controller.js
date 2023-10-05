@@ -1,26 +1,42 @@
 const Group = require("../schema/groups");
- 
-exports.newGroup = async (request, response)=>{
-                
-        const newConversation = new Conversation({
-            members:request.body.members
-            
-            ,   grpName:request.body.grpName,
-                grpPic:request.body.grpPic,
-            timestamps:Date.now()
-        })
+const userSchema = require("../schema/userSchema");
+exports.newGroup = async (request, response) => {
+    try {
+      // Create the new group
+      const newGroup = new Group({
+        members: request.body.members,
+        grpName: request.body.grpName,
+        grpPic: request.body.grpPic,
+        timestamps: Date.now()
+      });
+  
+      // Save the new group
+      const savedGroup = await newGroup.save();
+  
+      // Update the users' rooms with the new group's ID
+      const userIds = request.body.members.map(member => member._id);
 
-       // newConversation.save();
-        const converstion=await newConversation.save();
-       // console.log(response)
-        response.status(200).json({
-            success: true,
-            group: "group",
-            converstion
-        })
-    
-
-}
+      await userSchema.updateMany(
+        { _id: { $in: userIds } },
+        { $push: { rooms: savedGroup._id } }
+      );
+  
+      response.status(200).json({
+        success: true,
+        message: "Group Created Successfully!",
+        group: savedGroup
+      });
+    } catch (error) {
+      console.error("Error creating group:", error);
+      response.status(500).json({
+        success: false,
+        message: "Error creating group",
+        error: error.message
+      });
+    }
+  };
+  
+  
 
 exports.getGroups =async(request, response) =>{
     try {
@@ -45,10 +61,10 @@ exports.grpMsg = async (request, response) => {
         let prvMsg=[]
         if(group)
          prvMsg=group.message;
-        prvMsg.push(request.body);
+        prvMsg.push(request.body.msg);
         prvMsg.sort((a, b) => b.timestamps - a.timestamps);
 
-        await group.findByIdAndUpdate(request.body.grpid,{message:prvMsg})
+        await Group.findByIdAndUpdate(request.body.grpid,{message:prvMsg})
         return response.status(200).json(prvMsg);}
         else{
             
@@ -63,7 +79,7 @@ exports.grpMsg = async (request, response) => {
 exports.getgrpMessages = async (request, response) => {
     try {
 
-        const messages = await Group.findOne({ _id: request.params.id });
+        const messages = await Group.findOne({ _id: request.body.grpid });
         //console.log(conversationId);
         //console.log(messages);
         return response.status(200).json(messages);

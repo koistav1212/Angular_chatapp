@@ -7,9 +7,10 @@ const userSchema = new mongoose.Schema({
   emailId: { type: String, unique: true},
   password: String,
   profilePic: String,
+  about:String,
   createdAt: Date,
   isActive:{type:Boolean,default:true},
-  rooms:[Object],
+  rooms:[],
   conversations:[],
   connections:[]
 

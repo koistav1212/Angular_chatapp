@@ -25,8 +25,10 @@ import { UserListComponent } from './user-list/user-list.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { GroupInfoComponent } from './group-info/group-info.component';
 import { UserInfoComponent } from './user-info/user-info.component';
+import { StartScreenComponent } from './start-screen/start-screen.component';
 @NgModule({
-  declarations: [AppComponent, SidebarComponent, ChatComponent, LoginPageComponent, DashboardComponent, UserListComponent, GroupInfoComponent, UserInfoComponent],
+  declarations: [AppComponent, SidebarComponent, ChatComponent, LoginPageComponent,
+     DashboardComponent, UserListComponent, GroupInfoComponent, UserInfoComponent, StartScreenComponent],
   imports: [
     BrowserModule,
     CommonModule,

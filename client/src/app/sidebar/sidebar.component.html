@@ -1,6 +1,6 @@
 <div id="sidebar">
   <div id="row1">
-    <mat-tab-group [@.disabled]="true">
+    <mat-tab-group [@.disabled]="true" backgroundColor="transparent" color="warn">
       <mat-tab label="Messages">
         <div id="searchBox">
           <img width="19" src="../../assets/images/searchIcon.svg" />
@@ -11,11 +11,13 @@
 
           <div class="conversation" *ngFor="let conversation of !searchText ? conversations : filteredConversations" (click)="conversationClicked.emit(conversation)">
             <div class="picture" *ngIf="conversation.grpName == null">
-              <img src="{{ conversation.members.reciverPic }}" />
-            </div>
+              <img *ngIf="conversation.members.reciverId == currUser._id" [src]="getUserProfilePic(conversation.members.senderId)">
+              <img *ngIf="conversation.members.senderId == currUser._id" [src]="getUserProfilePic(conversation.members.reciverId)">
+              </div>
             <div class="content" *ngIf="conversation.grpName == null">
               <div class="conversationHeader">
-                <div class="name">{{ conversation.members.reciverName }}</div>
+                <div *ngIf="conversation.members.reciverId == currUser._id">{{getUserName(conversation.members.senderId)}}</div>
+                <div *ngIf="conversation.members.senderId == currUser._id">{{getUserName(conversation.members.reciverId)}}</div>
                 <div class="time">{{ formatTimestamp(conversation.message) }}</div>
               </div>
               <div class="message">
@@ -26,7 +28,7 @@
             </div>
           
             <div class="picture" *ngIf="conversation.grpName != null">
-              <img src="{{ conversation.grpPic }}" />
+              <img src="{{ conversation.grpPic|| '../../../../assets/background/grp_pic.png' }}" />
             </div>
             <div class="content" *ngIf="conversation.grpName != null">
               <div class="conversationHeader">

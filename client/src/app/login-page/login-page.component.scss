@@ -1,82 +1,99 @@
-// Basic styles for the entire form container
-.mat-tab-group {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    font-family: Arial, sans-serif;
-  
-    // Style tabs
-    .mat-tab-label {
-      background-color: #007bff;
-      color: white;
-      border-radius: 8px 8px 0 0;
-  
-      &.mat-tab-label-active {
-        background-color: #0056b3;
-      }
-    }
-  
-    .mat-tab-body-wrapper {
-      background-color: white;
-      border-radius: 0 0 8px 8px;
-      padding: 20px;
-    }
-  
-    // Style form elements
-    form {
-      .field-input {
-        margin-bottom: 15px;
-  
-        input {
-          width: 100%;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          font-size: 16px;
-          transition: border-color 0.3s;
-  
-          &:focus {
-            outline: none;
-            border-color: #007bff;
-          }
-        }
-  
-        label {
-          font-weight: bold;
-          display: block;
-        }
-  
-        .color {
-          small {
-            color: #dc3545;
-          }
-        }
-  
-        &.input-entered {
-          input {
-            border-color: #28a745;
-          }
-        }
-      }
-  
-      button {
-        width: 100%;
-        padding: 10px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-  
-        &:hover {
-          background-color: #0056b3;
-        }
-      }
+// Import background images
+@import url('https://example.com/background-image.jpg');
+@import url('https://example.com/another-background-image.jpg');
+
+::ng-deep .mat-tab-labels .mat-tab-label-active {
+  color:white;
+  }
+  .mat-mdc-tab-header{
+    border-bottom: 2px solid white;
+  }
+  ::ng-deep .mat-tab-list .mat-tab-labels {
+  color:rgb(172, 172, 172);
+  }
+
+  mat-tab-group {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    width: 440px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    font-size: 25px !important;
+  }
+  .textLabel{
+    margin: 5px; font-size: 20px;
+  }
+body {
+  background: url('../../assets/background/horizontal_bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  font-family: Arial, sans-serif;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+.color{
+  color: red !important;
+}
+.formclass{
+width: 350px;
+height: 400px;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+
+padding: 35px;
+margin: auto;
+border: 1px solid rgba(255, 255, 255, .25);
+border-radius: 20px;
+background-color: rgba(255, 255, 255, 0.45);
+box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+
+backdrop-filter: blur(15px);}
+// ...
+
+.field-input {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  input {
+    padding: 10px;
+    border: none;
+    border-radius: 25px; // Make it capsule
+    background: rgba(255, 255, 255, 0.9); // Adjust background color
+    outline: none;
+    font-size: 16px;
+    transition: background 0.3s, box-shadow 0.3s;
+
+    &:focus {
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); // Add focus effect
+      background: rgba(255, 255, 255, 1); // Adjust background color on focus
     }
   }
+
+  // ...
+}
+
+.capsule-button{
+  margin-top: 20px;
+}
+@media (max-width: 600px) {
   
+  mat-tab-group {
+    width: 340px;
+  }
+.formclass{
+  width: 260px;
+  height: 350px;
+}
+}

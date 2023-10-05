@@ -9,10 +9,7 @@ exports.newConversation = async (request, response)=>{
             
         const newConversation = new Conversation({
             members: {senderId:senderId, reciverId:reciverId,
-                reciverName:request.body.reciverName,
-                senderName:request.body.senderName,
-                reciverPic:request.body.reciverPic,
-                senderPic:request.body.senderPic
+                
             },
             timestamps:Date.now()
         })

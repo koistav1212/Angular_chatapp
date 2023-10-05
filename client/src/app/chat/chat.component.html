@@ -2,15 +2,16 @@
   <div id="header">
     <mat-icon (click)="backClicked.emit('back')">arrow_left_alt</mat-icon>
     <div class="avatarSection">
-      <div class="picture" *ngIf="conversation.grpName==null">
-        <img src="{{conversation.members.reciverPic}}" />
-      </div>
+      <div class="picture" *ngIf="conversation.grpName == null">
+        <img *ngIf="conversation.members.reciverId == service.currUser._id" [src]="getUserProfilePic(conversation.members.senderId)">
+        <img *ngIf="conversation.members.senderId == service.currUser._id" [src]="getUserProfilePic(conversation.members.reciverId)">
+        </div>
 
       <div class="nameSection" *ngIf="conversation.grpName==null">{{conversation.members.reciverName}}</div>
     </div>
     <div class="avatarSection">
       <div class="picture" *ngIf="conversation.grpName!=null">
-        <img src="{{conversation.grpPic}}" />
+        <img src="{{conversation.grpPic|| '../../../../assets/background/grp_pic.png'}}" />
       </div>
 
       <div class="nameSection" *ngIf="conversation.grpName!=null">{{conversation.grpName}}</div>
@@ -26,9 +27,12 @@
       [ngClass]="{ me: message.senderId==service.currUser._id }"
       *ngFor="let message of messageList"
     >
+    <div *ngIf="message.senderId !== service.currUser._id && conversation.grpName">
+      <div class="userName">{{ message.senderName }}</div>
+    </div>
       <div class="messageContent">
         {{ message.text }}
-        <div class="time">{{ message.time }}</div>
+        <div class="time">{{ formatTimestamp(message.timestamps) }}</div>
       </div>
     </div>
   </div>

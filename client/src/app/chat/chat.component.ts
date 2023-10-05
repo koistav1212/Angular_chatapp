@@ -25,7 +25,8 @@ export class ChatComponent implements OnInit {
     
    // console.log(this.conversation)
     this.messageList=this.conversation.message
-    this.getNewMessages()
+    this.getNewMessages();
+    this.getAllUsers();
   }
 
   submitMessage(event) {
@@ -97,4 +98,47 @@ export class ChatComponent implements OnInit {
     // Emit the "back" event
     this.backClicked.emit('back');
   }
+  allUsers=[]
+  getAllUsers(){
+     this.service.getUsers({}).subscribe((res:any)=>{
+      console.log(" sidebar",res)
+      this.allUsers=res.userList
+    })  
+  }
+  formatTimestamp(messages: any): string {
+    if(messages){
+    const today = new Date();
+    const messageDate = new Date(parseInt(messages));
+  
+    // Check if the message date is the same day as today
+    if (
+      messageDate.getDate() === today.getDate() &&
+      messageDate.getMonth() === today.getMonth() &&
+      messageDate.getFullYear() === today.getFullYear()
+    ) {
+      // Today: Display time
+      return messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    } else if (
+      messageDate.getDate() === today.getDate() - 1 &&
+      messageDate.getMonth() === today.getMonth() &&
+      messageDate.getFullYear() === today.getFullYear()
+    ) {
+      // Yesterday: Display time
+      return messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    } else {
+      // Other days: Display full date with time
+      return messageDate.toLocaleString(); // This includes both date and time
+    }}
+    return "";
+  }
+  
+  getUserProfilePic(userId: string): string {
+    const user = this.allUsers.find(u => u._id === userId);
+    return user ? user.profilePic : '../../../../assets/background/user_icon.png';
+  }
+  getUserName(userId: string): string {
+    const user = this.allUsers.find(u => u._id === userId);
+    return user ? user.userName : 'New User';
+  }
+  
 }

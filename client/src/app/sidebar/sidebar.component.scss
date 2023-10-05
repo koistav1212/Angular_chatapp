@@ -1,6 +1,14 @@
+
+mat-tab-group{
+  color: white;
+}
+.picture img{
+  border-radius: 50%;
+}
 #sidebar {
   width: 100%;
   height: 100%;
+   background: url('../../assets/background/vertical_bg.jpg');
   border-right: 1px solid #e1e4e5;
   display: flex;
   flex-direction: column;
@@ -38,31 +46,42 @@
 
     #searchBox {
       flex-basis: 50px;
-      background-color: #fbfbfb;
-      border-bottom: 1px solid #e1e4e5;
+      background: rgba(255, 255, 255, 0.2); /* Glassmorphism effect */
+      backdrop-filter: blur(15px); /* Glassmorphism effect */
+      border-bottom: 1px solid rgba(225, 228, 229, 0.2); /* Adjusted border color for glass effect */
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 10px;
+      height: 45px;
+      position: relative; /* Needed for positioning the image */
+      
       img {
         position: absolute;
-        left: 30px;
+        left: 40px;
+        height: 20px;
       }
-
+    
       input {
         width: calc(90% - 60px);
         border: none;
         border-radius: 20px;
-        height: 70%;
+        height: 100%;
         padding-left: 60px;
-        color: #a4a4a4;
+        color: white;
+        font-size: 20px;
+        background: rgba(255, 255, 255, 0.1); /* Glassmorphism background */
+        backdrop-filter: blur(5px); /* Glassmorphism background */
         outline: none;
-        box-shadow: 0px 0px 3px #efefef;
+        box-shadow: 0px 0px 3px rgba(239, 239, 239, 0.3); /* Adjusted box shadow for glass effect */
+        
         &::placeholder {
-          color: #a4a4a4;
+          color: white;
           font-weight: 100;
         }
       }
     }
+    
   }
 
   #noConversations {
@@ -76,59 +95,81 @@
 
   #sidebarContent {
     flex-grow: 1;
-    overflow: auto;
-background: white;
-    .conversation {
-      height: 67px;
-      display: flex;
-      padding-right: 5px;
-      transition: all 0.4s ease-in-out;
-      cursor: pointer;
-      &:hover {
-        background-color: rgba(#ccc, 0.05);
-      }
-      .picture {
-        flex-basis: 73px;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        img {
-          max-width: 100%;
-          width: 48px;
-        }
-      }
-      .content {
-        border-bottom: 1px solid #f2f2f2;
-        flex-grow: 1;
-        padding: 13px 0px;
-        padding-right: 10px;
-        .conversationHeader {
-          display: flex;
-          flex-direction: row;
-          justify-content: space-around;
-          .name {
-            color: #040404;
-          }
-          .time {
-            color: #979797;
-            font-size: 13px;
-            padding-top: 2px;
-          }
-        }
+background: rgba(255, 255, 255, 0.2); /* Glassmorphism effect */
+backdrop-filter: blur(15px); /* Glassmorphism effect */
+border-radius: 15px;
+padding: 20px;
+text-align: center;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+max-width: 300px;
+width: 100%;
+margin: 10px auto;
+overflow-y: hidden;
 
-        .message {
-          color: #717171;
-          font-size: 13px;
-          padding-top: 5px;
-          display: flex;
-          align-items: center;
-          img {
-            margin-right: 2px;
-          }
-        }
+.conversation {
+  display: flex;
+  margin: 5px;
+  background-color: rgba(255, 255, 255, 0.2); /* Glass effect background color */
+  border-radius: 30px; /* Capsule shape with rounded corners */
+  padding: 10px;
+  transition: background-color 0.3s; /* Smooth background color transition */
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.3); /* Lighter background on hover */
+    cursor: pointer;
+  }
+
+  .picture {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; /* Circular avatar image */
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Maintain aspect ratio while covering the container */
+    }
+  }
+
+  .content {
+    flex-grow: 1;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .conversationHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+
+      .name {
+        font-weight: bold;
+      }
+
+      .time {
+        font-size: 12px;
+        color: white;
       }
     }
+
+    .message {
+      display: flex;
+      align-items: center;
+
+      img {
+        margin-right: 5px;
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+}
+
+/* Add additional styling for the glass effect if needed */
+
   }
 }
 .fab-button {
@@ -145,12 +186,12 @@ background: white;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, rgba(85, 85, 255, 0.5), rgba(255, 85, 255, 0.5)); 
+  background: url('../../assets/background/vertical_bg.jpg'); 
 }
 
 .profile-card {
   background: rgba(255, 255, 255, 0.2); /* Glassmorphism effect */
-  backdrop-filter: blur(10px); /* Glassmorphism effect */
+  backdrop-filter: blur(15px); /* Glassmorphism effect */
   border-radius: 15px;
   padding: 20px;
   text-align: center;
@@ -166,8 +207,8 @@ background: white;
 }
 
 .profile-picture img {
-  width: 300px;
-  height: 300px;
+  width: 275px;
+  height: 275px;
   display: block;
   border-radius: 50%; /* Make the image circular */
 }

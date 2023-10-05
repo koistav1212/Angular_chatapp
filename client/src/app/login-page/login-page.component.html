@@ -1,7 +1,8 @@
-<mat-tab-group [@.disabled]="true">
-    <mat-tab label="Login">
+<body>
+<mat-tab-group [@.disabled]="true" backgroundColor="transparent" color="warn" >
+    <mat-tab  label="Login">
   
-<form [formGroup]="userRegistrationForm">
+<form [formGroup]="userRegistrationForm" class="formclass">
     <div class="field-input form-floating mb-3" [ngClass]="{'input-entered': email}">
         <input type="email" [(ngModel)]="email" class="form-control" id="floatingInput"
             placeholder="name@example.com"
@@ -17,11 +18,11 @@
                 *ngIf="userRegistrationForm.get('email').errors?.email">Invalid email
                 address</small>
         </div>
-        <label for="floatingInput ">Email address</label>
+        <label class="textLabel" for="floatingInput ">Email address</label>
     </div>
     <div class="field-input form-floating mb-3" [ngClass]="{'input-entered': password}">
         <input type="password" [(ngModel)]="password" class="form-control" id="floatingInput"
-            placeholder=""
+            placeholder="********"
             [class.is-invalid]="userRegistrationForm.get('password').invalid && userRegistrationForm.get('password').touched"
             class="form-control" formControlName="password" />
 
@@ -33,20 +34,20 @@
             <small class="text-danger"
                 *ngIf="userRegistrationForm.get('password').errors?.password">Invalid password</small>
         </div>
-        <label for="floatingInput "> password</label>
+        <label class="textLabel" for="floatingInput "> password</label>
     </div>
 </form>
 <div class="d-grid">
     <button  (click)="login()"
-        class="btn bg-primary btn-login text-uppercase fw-bold text-white col" type="button"
+    class="capsule-button" type="button"
         id="next">
         Login
     </button>
 </div>
 </mat-tab>
-<mat-tab label="Signup">
+<mat-tab  label="Signup">
       
-<form [formGroup]="userRegistrationForm">
+<form [formGroup]="userRegistrationForm" class="formclass">
     <div class="field-input form-floating mb-3" [ngClass]="{'input-entered': userName}">
         <input type="text" [(ngModel)]="userName" class="form-control" id="floatingInput"
             placeholder="User Name"
@@ -59,7 +60,7 @@
                 *ngIf="userRegistrationForm.get('userName').errors?.required">User Name is
                 required</small>
         </div>
-        <label for="floatingInput ">User Name</label>
+        <label class="textLabel" for="floatingInput ">User Name</label>
     </div>
     <div class="field-input form-floating mb-3" [ngClass]="{'input-entered': email}">
         <input type="email" [(ngModel)]="email" class="form-control" id="floatingInput"
@@ -76,11 +77,11 @@
                 *ngIf="userRegistrationForm.get('email').errors?.email">Invalid email
                 address</small>
         </div>
-        <label for="floatingInput ">Email address</label>
+        <label class="textLabel" for="floatingInput ">Email address</label>
     </div>
     <div class="field-input form-floating mb-3" [ngClass]="{'input-entered': password}">
         <input type="password" [(ngModel)]="password" class="form-control" id="floatingInput"
-            placeholder=""
+            placeholder="********"
             [class.is-invalid]="userRegistrationForm.get('password').invalid && userRegistrationForm.get('password').touched"
             class="form-control" formControlName="password" />
 
@@ -92,15 +93,16 @@
             <small class="text-danger"
                 *ngIf="userRegistrationForm.get('password').errors?.password">Invalid password</small>
         </div>
-        <label for="floatingInput "> password</label>
+        <label class="textLabel" for="floatingInput "> password</label>
     </div>
 </form>
 <div class="d-grid">
-    <button  (click)="signup()"
-        class="btn bg-primary btn-login text-uppercase fw-bold text-white col" type="button"
+    <button  (click)="signup()" 
+        class="capsule-button" type="button"
         id="next">
         Signup
     </button>
     </div>
 </mat-tab>
 </mat-tab-group>
+</body>

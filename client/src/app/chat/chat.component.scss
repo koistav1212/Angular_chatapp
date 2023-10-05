@@ -7,24 +7,34 @@
 
   #header {
     min-height: 67px;
-    background-color: #eeeeee;
+    background: rgba(255, 255, 255, 0.2); /* Glassmorphism effect */
+    backdrop-filter: blur(10px); /* Glassmorphism effect */
     box-shadow: 2px 0px 4px #ccc;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative; /* Needed for positioning the user icon */
 
     .avatarSection {
       display: flex;
+      align-items: center;
       position: absolute;
-      left: 50px;
+      left: 50px; /* Needed for positioning the user icon */
+
       .picture {
         min-width: 40px;
         max-width: 40px;
+        width: 40px; /* Make the user icon round */
+        height: 40px; /* Make the user icon round */
+        border-radius: 50%; /* Make the user icon round */
+        overflow: hidden;
         margin: 0 10px;
+
         img {
           max-width: 100%;
         }
       }
+
       .nameSection {
         flex-grow: 1;
         color: #545454;
@@ -45,6 +55,8 @@
     }
   }
 
+
+
   #body {
     flex-grow: 1;
     display: flex;
@@ -52,12 +64,17 @@
     flex-direction: column-reverse;
     padding: 20px 50px;
     overflow: scroll;
+
     .message {
       margin-top: 10px;
       display: flex;
       align-items: flex-start;
       color: #767676;
       flex-direction: column;
+      background: rgba(255, 255, 255, 0.2); /* Glass effect background */
+      border-radius: 10px;
+      padding: 10px;
+
       .messageContent {
         background-color: #fff;
         border-radius: 5px;
@@ -73,6 +90,7 @@
 
       &.me {
         align-items: flex-end;
+
         .messageContent {
           background-color: #dcf7c5;
         }

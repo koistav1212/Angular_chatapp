@@ -15,6 +15,7 @@ export class SidebarComponent implements OnInit {
   allUsers=[]
   params: any = {
       };
+    currUser={};
       
   imgUrl: string = '';
   get filteredConversations() {
@@ -48,7 +49,7 @@ export class SidebarComponent implements OnInit {
 
   async ngOnInit() {
  (await this.services.getCurrUser()).subscribe((res:any)=>{
- 
+  this.currUser=res.user;
   this.services.setCurrUser(res.user)
   this.params={
     _id:res.user._id,
@@ -195,5 +196,12 @@ return "";
       this.services.setCurrUser(data);
     });
   }
-
+  getUserProfilePic(userId: string): string {
+    const user = this.allUsers.find(u => u._id === userId);
+    return user ? user.profilePic : '../../../../assets/background/user_icon.png';
+  }
+  getUserName(userId: string): string {
+    const user = this.allUsers.find(u => u._id === userId);
+    return user ? user.userName : 'New User';
+  }
 }

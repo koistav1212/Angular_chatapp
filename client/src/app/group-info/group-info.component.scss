@@ -1,93 +1,140 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background overlay */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  z-index: 1000; /* Ensure the modal is above other content */
+}
+.add-users-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: #ff4081; /* Background color for the header */
+  border-radius: 50px; /* Capsule design with 50% radius */
+
+  .add-icon {
+    color: white; /* Icon color */
+    margin-right: 10px; /* Spacing between icon and text */
+  }
+
+  h2 {
+    color: white; /* Text color */
+    font-size: 20px; /* Adjust the font size as needed */
+    margin: 0; /* Remove default margin for <h2> */
+    line-height: 25px;
+  }
+}
+.scrollable-container {
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.2); /* Glassmorphism effect */
+    backdrop-filter: blur(15px); /* Glassmorphism effect */
+    box-shadow: 2px 0px 4px #ccc;
+   width: 25%;
+  max-height: 80vh; /* Limit the height for scrolling */
+  text-align: center;
+  position: absolute;
+}
+
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 24px;
+}
 
 .profile-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(135deg, rgba(85, 85, 255, 0.5), rgba(255, 85, 255, 0.5)); 
+  margin-top: 20px;
+}
+
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-picture img {
+  max-width: 150px;
+  border-radius: 50%;
+}
+
+.profile-info {
+  margin-top: 5px;
+  
+  display: flex;
+  width: 90%;
+  margin: auto;
+  justify-content: space-around;
+  h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
   }
-  
-  .profile-card {
-    background: rgba(255, 255, 255, 0.2); /* Glassmorphism effect */
-    backdrop-filter: blur(10px); /* Glassmorphism effect */
-    border-radius: 15px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    max-width: 300px;
-    width: 100%;
+  p {
+    font-size: 14px;
+    color: white;
   }
-  
-  .profile-picture {
-    border-radius: 50%;
-    overflow: hidden;
-    width: 100px;
-    height: 100px;
-    margin: 20px auto;
-    position: relative;
-  
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-    }
-  
-    .edit-icon {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      cursor: pointer;
-    }
-  }
-  
-  .profile-info {
-    margin: 20px 0;
-  
-    h2 {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-  
-    p {
-      font-size: 14px;
-      color: #555;
-    }
-  
-    .edit-icon {
-      font-size: 14px;
-      cursor: pointer;
-    }
-  }
-  
-  .scrollable-list {
-    max-height: 150px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-top: 10px;
-    text-align: left;
-  
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-  
-      li {
-        margin-bottom: 10px;
-        font-size: 14px;
+}
+
+.scrollable-list {
+  margin-top: 10px;
+  height: 150px; overflow-y: scroll; 
+  ul {
+    list-style: none;
+    padding: 0;
+    li {
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      mat-icon {
+        cursor: pointer;
+        font-size: 24px;
+        color: #ff4081; /* Red color, change as needed */
       }
     }
-    
   }
-  ::ng-deep .mat-tab-label {
-    min-width: 25px !important;
-    padding: 0px 3px;
+}
+
+ng-multiselect-dropdown{
+  color: black !important;
+flex-grow: 1;
+}
+.capsule-button{
+  padding: 5px 8px;
+}
+::ng-deep .multiselect-dropdown {
+  height: 200px; /* Adjust the height to your preference */
+  overflow-y: auto; /* Add scroll if content exceeds the height */
+}
+@media (max-width: 800px) {
+
+  .scrollable-container{
+    width: 60%;
   }
-  @media (max-width: 600px) {
-    .mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab{
-      padding: 0px 3px !important ;
-    }
-  
+}
+@media (max-width: 600px) {
+  .scrollable-list {
+    height: 100px;
   }
+  .scrollable-container{
+    width: 60%;
+  }
+}
+@media (max-width: 420px) {
+
+  .scrollable-container{
+    width: 70%;
+  }
+}
+.capsule-button{
+  height: 50px;
+  padding: 5px 8px;
+  margin: auto;
+}

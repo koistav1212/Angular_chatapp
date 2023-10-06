@@ -1,33 +1,44 @@
-<div class="profile-container">
-    <div class="profile-card">
-      <div class="profile-picture">
-        <img src="https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png"
-          alt="Profile Picture" />
-        <mat-icon class="edit-icon" (click)="editProfilePicture()">edit</mat-icon>
-      </div>
-      <div class="profile-info">
-        <h2>Group Name</h2>
-        <p>{{conversation.grpName}}</p>
-        <mat-icon class="edit-icon" (click)="editName()">edit</mat-icon>
-      </div>
-      <div class="profile-info">
-        <h2>Group Description</h2>
-        <p>{{conversation.grpDesc}}</p>
-        <mat-icon class="edit-icon" (click)="editAboutMe()">edit</mat-icon>
-      </div>
-      <div class="profile-info">
-        <h2>Created At</h2>
-        <p>Date of Account Creation</p>
-      </div>
-      <div class="profile-info">
-        <h2>Group Members</h2>
-        <div class="scrollable-list">
-          <ul>
-            <li *ngFor="let group of myGroups">{{ group.name }}</li>
-            
-        <mat-icon class="edit-icon" (click)="editGroups()">edit</mat-icon>
-          </ul>
+<div class="backdrop">
+  <div class="scrollable-container">
+    
+    <mat-icon (click)="closeModal();" class="close-icon">cancel</mat-icon>
+
+    <!-- New content -->
+    <div class="profile-container">
+      <div class="profile-card">
+        <div class="profile-picture">
+          <img src="{{user.profilePic|| 'https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png'}}"
+            alt="Profile Picture" />
+        </div>
+        <div class="profile-info">
+          <h2>User Name</h2>
+          <p>{{ user.userName }}</p>
+        </div>
+        <div class="profile-info">
+          <h2>About</h2>
+          <p>{{ user.about }}</p>
+        </div>
+        <div class="profile-info">
+          <h2>Joined At</h2>
+          <p>{{formatTimestamp(user.timestamps)}}</p>
+        </div>
+        
+        <div class="profile-info">
+          <h2>Common Groups</h2>
+          <div class="scrollable-list">
+            <ul>
+              <li *ngFor="let mem of user.rooms">
+                {{ mem.grpName }}
+                
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+<ng-template #userlist let-quest>
+  <app-user-list  ></app-user-list>
+</ng-template>

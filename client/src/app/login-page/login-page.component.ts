@@ -36,7 +36,7 @@ export class LoginPageComponent implements OnInit {
     })
 this.services.userLogin({emailId:this.email,password:this.password}).subscribe((res:any)=>{
 
-  this.services.setCurrUser(res)
+  this.services.setCurrUser(res,{})
 this.router.navigate(["/dashboard"])
 })
   }
@@ -48,7 +48,7 @@ this.router.navigate(["/dashboard"])
       .subscribe((res:any)=>{
         console.log(res)
         
-  this.services.setCurrUser(res)
+  this.services.setCurrUser(res,{})
   
 this.router.navigate(["/dashboard"])
       })

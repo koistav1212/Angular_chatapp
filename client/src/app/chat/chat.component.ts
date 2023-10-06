@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { services } from '../services/services';
 import * as io from "socket.io-client";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -11,22 +12,26 @@ export class ChatComponent implements OnInit {
   messageList=[]
   @Output() onSubmit: EventEmitter<any> = new EventEmitter();
   @Output() backClicked: EventEmitter<string> = new EventEmitter();
-
+  @ViewChild('testMsg') testMsgTextarea !: ElementRef;
   emojiPickerVisible;
   message = '';
-  constructor(public service:services) {
+  constructor(public service:services,public modalService: NgbModal) {
     
  //   this.socket = io('http://localhost:5000',{withCredentials: true, transports: ["websocket"]});
   }
   socket = io.connect('http://localhost:5000', {withCredentials: true, transports: ["websocket"]});
+currUser:any={}
 
-
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     
-   // console.log(this.conversation)
+    console.log("ChatConv",this.conversation)
     this.messageList=this.conversation.message
     this.getNewMessages();
     this.getAllUsers();
+    (await this.service.getCurrUser()).subscribe((res:any)=>{
+      this.currUser=res.user;})
+
+      
   }
 
   submitMessage(event) {
@@ -36,7 +41,7 @@ export class ChatComponent implements OnInit {
     this.message = '';
     this.currConv={"conversationId": this.conversation._id,
     "reciverId":this.conversation.members.reciverId,
-    "senderId":this.service.currUser._id,
+    "senderId":this.service.getstoreduser()._id,
     "text":value,
     "timestamps":Date.now()
   }
@@ -44,7 +49,7 @@ export class ChatComponent implements OnInit {
     
     this.service.addMessage(this.currConv).subscribe((data:any)=>{
       console.log(data)
-      this.socket.emit('save-message', `Message - Sent by: ${this.service.currUser._id}`);
+      this.socket.emit('save-message', `Message - Sent by: ${this.service.getstoreduser()._id}`);
       this.ngOnInit();
     })
   }
@@ -53,9 +58,9 @@ export class ChatComponent implements OnInit {
     this.message = '';
     this.currConv={"grpId": this.conversation._id,
    
-    "senderId":this.service.currUser._id,
+    "senderId":this.service.getstoreduser()._id,
     
-    "senderName":this.service.currUser.userName,
+    "senderName":this.service.getstoreduser().userName,
     "text":value,
     "timestamps":Date.now()
   }
@@ -63,7 +68,7 @@ export class ChatComponent implements OnInit {
     
     this.service.addMsgToGroup(this.conversation._id,this.currConv).subscribe((data:any)=>{
       
-      this.socket.emit('save-message', `Message - Sent by: ${this.service.currUser._id}`);
+      this.socket.emit('save-message', `Message - Sent by: ${this.service.getstoreduser()._id}`);
       this.ngOnInit();
     })
 
@@ -100,8 +105,8 @@ export class ChatComponent implements OnInit {
   }
   allUsers=[]
   getAllUsers(){
-     this.service.getUsers({}).subscribe((res:any)=>{
-      console.log(" sidebar",res)
+     this.service.getallUsers({}).subscribe((res:any)=>{
+
       this.allUsers=res.userList
     })  
   }
@@ -134,6 +139,7 @@ export class ChatComponent implements OnInit {
   
   getUserProfilePic(userId: string): string {
     const user = this.allUsers.find(u => u._id === userId);
+   
     return user ? user.profilePic : '../../../../assets/background/user_icon.png';
   }
   getUserName(userId: string): string {
@@ -141,4 +147,13 @@ export class ChatComponent implements OnInit {
     return user ? user.userName : 'New User';
   }
   
+  openModal(userlist: any) {
+    this.modalService.open(userlist, { ariaLabelledBy: 'modal-basic-title', windowClass: 'after-submit-popup',centered:true }).result.then((result) => {
+  
+    }, (res:any) => {
+      if (res) {
+     
+      }
+    });
+  }
 }

@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
   password: String,
   profilePic: String,
   about:String,
-  createdAt: Date,
+  timestamps: String,
   isActive:{type:Boolean,default:true},
   rooms:[],
   conversations:[],

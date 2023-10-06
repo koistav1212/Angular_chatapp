@@ -27,12 +27,22 @@
 justify-content: flex-start;
 align-items: stretch;
   app-sidebar {
-    flex-basis: 30%;
     display: block;
     height: 100%;
     border-right: 1px solid #e8e8e8;
   }
-
+.head1{
+  display: block;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+.head2{
+  display: block;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
   #chat {
     background-color: #f7f9fa;
     flex-grow: 1;
@@ -42,8 +52,10 @@ align-items: stretch;
       align-items: center;
       justify-content: center;
       height: 100%;
+      
+      margin: auto;
       flex-direction: column;
-
+background-color: white;
       h2 {
         font-size: 35px;
         font-weight: normal;
@@ -68,13 +80,18 @@ align-items: stretch;
 .fab-button {
 position: absolute;
 bottom: 20px; /* Adjust the bottom position as needed */
-right: 20px; /* Adjust the right position as needed */
+right: 20px; 
+z-index: 12;
+/* Adjust the right position as needed */
 }
 
 #chatPlaceholder img{
   width: 400px;
 }
 
+@media (max-width: 1600px) {
+.head1{display: none !important;}.head2{display: none !important;}
+}
 @media (max-width: 800px) {
 #chatPlaceholder{
   display: none !important;
@@ -85,12 +102,13 @@ right: 20px; /* Adjust the right position as needed */
   #chatContainer {
     flex-direction: column;
   }
+  app-sidebar{
+    height: 100vh;
+  }
   mat-tab-group{
     height: 100vh !important;
     overflow-y: hidden;
   }
-  app-chat{
-    z-index: 12;
-  }
+  
 
 }

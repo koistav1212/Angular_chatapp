@@ -1,15 +1,17 @@
 <div id="container">
   <div id="header">
     <mat-icon (click)="backClicked.emit('back')">arrow_left_alt</mat-icon>
-    <div class="avatarSection">
+    <div class="avatarSection" (click)="openModal(userinfo)">
       <div class="picture" *ngIf="conversation.grpName == null">
-        <img *ngIf="conversation.members.reciverId == service.currUser._id" [src]="getUserProfilePic(conversation.members.senderId)">
-        <img *ngIf="conversation.members.senderId == service.currUser._id" [src]="getUserProfilePic(conversation.members.reciverId)">
-        </div>
+        <img *ngIf="conversation.members.reciverId == currUser._id" [src]="getUserProfilePic(conversation.members.senderId)">
+        <img *ngIf="conversation.members.senderId == currUser._id" [src]="getUserProfilePic(conversation.members.reciverId)">
+         </div>
 
-      <div class="nameSection" *ngIf="conversation.grpName==null">{{conversation.members.reciverName}}</div>
+      <div class="nameSection" *ngIf="conversation.members.reciverId == currUser._id">{{getUserName(conversation.members.senderId)}}</div>
+      <div  class="nameSection"  *ngIf="conversation.members.senderId == currUser._id">{{getUserName(conversation.members.reciverId)}}</div>
+    
     </div>
-    <div class="avatarSection">
+    <div class="avatarSection" (click)="openModal(groupinfo)">
       <div class="picture" *ngIf="conversation.grpName!=null">
         <img src="{{conversation.grpPic|| '../../../../assets/background/grp_pic.png'}}" />
       </div>
@@ -52,7 +54,7 @@
       ></emoji-mart>
     </div>
     <div id="textarea">
-      <textarea
+      <textarea id="testMsg"
         [(ngModel)]="message"
         (keyup.enter)="submitMessage($event)"
       ></textarea>
@@ -60,5 +62,15 @@
     <div id="micIcon">
       <img src="../../assets/images/voiceIcon.svg" />
     </div>
+   
+
   </div>
 </div>
+<!-- Giving userId for chat based on -->
+<ng-template #userinfo let-quest>
+  <app-user-info [userId]="conversation.members.reciverId==service.currUser._id ?conversation.members.senderId:conversation.members.reciverId" *ngIf="conversation.grpName==null" (backClicked)="onChatBackClicked($event)" ></app-user-info>
+</ng-template>
+
+<ng-template #groupinfo let-quest>
+  <app-group-info [grpid]="conversation._id" *ngIf="conversation.grpName!=null"  (backClicked)="onChatBackClicked($event)" ></app-group-info>
+</ng-template>

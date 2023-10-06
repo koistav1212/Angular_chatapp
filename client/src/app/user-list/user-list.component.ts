@@ -47,7 +47,7 @@ export class UserListComponent {
   
   getAllUsers(data:any){
   
-    this.services.getUsers(data).subscribe((res:any)=>{
+    this.services.getallUsers(data).subscribe((res:any)=>{
       
       this.allUsers=res.userList
     })  

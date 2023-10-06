@@ -1,9 +1,13 @@
 <body>
+    <div class="blurBody">
 <mat-tab-group [@.disabled]="true" backgroundColor="transparent" color="warn" >
     <mat-tab  label="Login">
   
 <form [formGroup]="userRegistrationForm" class="formclass">
+
+    <h2> Login to stay Connected! </h2>
     <div class="field-input form-floating mb-3" [ngClass]="{'input-entered': email}">
+        <label class="textLabel" for="floatingInput ">Email address</label>
         <input type="email" [(ngModel)]="email" class="form-control" id="floatingInput"
             placeholder="name@example.com"
             [class.is-invalid]="userRegistrationForm.get('email').invalid && userRegistrationForm.get('email').touched"
@@ -18,9 +22,10 @@
                 *ngIf="userRegistrationForm.get('email').errors?.email">Invalid email
                 address</small>
         </div>
-        <label class="textLabel" for="floatingInput ">Email address</label>
+        
     </div>
     <div class="field-input form-floating mb-3" [ngClass]="{'input-entered': password}">
+        <label class="textLabel" for="floatingInput "> password</label>
         <input type="password" [(ngModel)]="password" class="form-control" id="floatingInput"
             placeholder="********"
             [class.is-invalid]="userRegistrationForm.get('password').invalid && userRegistrationForm.get('password').touched"
@@ -34,7 +39,7 @@
             <small class="text-danger"
                 *ngIf="userRegistrationForm.get('password').errors?.password">Invalid password</small>
         </div>
-        <label class="textLabel" for="floatingInput "> password</label>
+        
     </div>
 </form>
 <div class="d-grid">
@@ -48,7 +53,9 @@
 <mat-tab  label="Signup">
       
 <form [formGroup]="userRegistrationForm" class="formclass">
+    <h2>Let's get you started!</h2>
     <div class="field-input form-floating mb-3" [ngClass]="{'input-entered': userName}">
+        <label class="textLabel" for="floatingInput ">User Name</label>
         <input type="text" [(ngModel)]="userName" class="form-control" id="floatingInput"
             placeholder="User Name"
             [class.is-invalid]="userRegistrationForm.get('userName').invalid && userRegistrationForm.get('userName').touched"
@@ -60,9 +67,10 @@
                 *ngIf="userRegistrationForm.get('userName').errors?.required">User Name is
                 required</small>
         </div>
-        <label class="textLabel" for="floatingInput ">User Name</label>
+        
     </div>
     <div class="field-input form-floating mb-3" [ngClass]="{'input-entered': email}">
+        <label class="textLabel" for="floatingInput ">Email address</label>
         <input type="email" [(ngModel)]="email" class="form-control" id="floatingInput"
             placeholder="name@example.com"
             [class.is-invalid]="userRegistrationForm.get('email').invalid && userRegistrationForm.get('email').touched"
@@ -77,9 +85,10 @@
                 *ngIf="userRegistrationForm.get('email').errors?.email">Invalid email
                 address</small>
         </div>
-        <label class="textLabel" for="floatingInput ">Email address</label>
+       
     </div>
     <div class="field-input form-floating mb-3" [ngClass]="{'input-entered': password}">
+        <label class="textLabel" for="floatingInput "> password</label>
         <input type="password" [(ngModel)]="password" class="form-control" id="floatingInput"
             placeholder="********"
             [class.is-invalid]="userRegistrationForm.get('password').invalid && userRegistrationForm.get('password').touched"
@@ -93,7 +102,7 @@
             <small class="text-danger"
                 *ngIf="userRegistrationForm.get('password').errors?.password">Invalid password</small>
         </div>
-        <label class="textLabel" for="floatingInput "> password</label>
+        
     </div>
 </form>
 <div class="d-grid">
@@ -105,4 +114,5 @@
     </div>
 </mat-tab>
 </mat-tab-group>
+</div>
 </body>

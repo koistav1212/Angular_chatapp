@@ -98,7 +98,7 @@ exports.addMember = async (req, res) => {
         const currentMembers = group.members;
   
         // Check if the member is already in the group
-        if (currentMembers.includes(memberIdToAdd)) {
+        if (currentMembers.includes(memberIdToAdd._id)) {
           return res.status(400).json({ message: 'Member is already in the group' });
         }
   
@@ -117,19 +117,18 @@ exports.addMember = async (req, res) => {
       return res.status(500).json({ message: 'Internal server error' });
     }
   };
-  
   exports.removeMember = async (req, res) => {
     try {
       const groupId = req.body.grpid;
       const memberIdToRemove = req.body.memid;
-  
+
       const group = await Group.findOne({ _id: groupId });
-  
+
       if (group) {
         const currentMembers = group.members;
   
         // Find the index of the member to remove in the members array
-        const indexToRemove = currentMembers.indexOf(memberIdToRemove);
+        const indexToRemove = currentMembers.findIndex(member => member._id === memberIdToRemove);
   
         // If the member is found, remove them
         if (indexToRemove !== -1) {
@@ -137,8 +136,15 @@ exports.addMember = async (req, res) => {
   
           // Update the group with the updated members list
           await Group.findByIdAndUpdate(groupId, { members: currentMembers });
+          const userrooms = await userSchema.findOne({_id:memberIdToRemove});
+console.log(userrooms)
+          const updatedUser = await userSchema.findByIdAndUpdate(
+            memberIdToRemove, // Assuming memberIdToRemove is the user's ID
+            {rooms:userrooms}, // Use req.body to update the user data
+            { new: true } // This option returns the updated user object
+          );
   
-          return res.status(200).json({ message: 'Member removed successfully' });
+          return res.status(200).json({ message: 'Member removed successfully', updatedUser });
         } else {
           return res.status(404).json({ message: 'Member not found in the group' });
         }

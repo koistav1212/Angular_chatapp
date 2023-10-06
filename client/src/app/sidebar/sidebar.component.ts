@@ -15,7 +15,7 @@ export class SidebarComponent implements OnInit {
   allUsers=[]
   params: any = {
       };
-    currUser={};
+    currUser:any={};
       
   imgUrl: string = '';
   get filteredConversations() {
@@ -50,7 +50,7 @@ export class SidebarComponent implements OnInit {
   async ngOnInit() {
  (await this.services.getCurrUser()).subscribe((res:any)=>{
   this.currUser=res.user;
-  this.services.setCurrUser(res.user)
+  this.services.setCurrUser(res.user,this.allUsers);
   this.params={
     _id:res.user._id,
     userName:res.user.userName,
@@ -68,13 +68,17 @@ this.imgUrl='https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-forei
   }
   getAllUsers(data:any){
     console.log("sidebar",data)
-    this.services.getUsers(data).subscribe((res:any)=>{
+    this.services.getallUsers(data).subscribe((res:any)=>{
       console.log(" sidebar",res)
-      this.allUsers=res.userList
+      this.allUsers=res.userList;
+      
+  this.services.setCurrUser(res.user,this.allUsers);
     })  
   }
   getAllConversation(){
-    this.services.getAllConversation(this.services.currUser).subscribe((res:any)=>{
+  this.currUser=this.services.getstoreduser();
+  console.log("sideUser",this.currUser)
+    this.services.getAllConversation(this.currUser).subscribe((res:any)=>{
       
       if(res)
       this.conversations=res
@@ -82,7 +86,9 @@ this.imgUrl='https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-forei
   }
   getAllGroups()
   {
-    this.services.getGroups(this.services.currUser.rooms).subscribe((res:any)=>{
+    
+  this.currUser=this.services.getstoreduser();
+    this.services.getGroups(this.currUser.rooms).subscribe((res:any)=>{
       
       if(res)
       this.conversations = [...this.conversations, ...res];
@@ -90,19 +96,19 @@ this.imgUrl='https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-forei
     })  
   }
   connect(userId:any,userName:any,userPic:any){
-    console.log(this.services.currUser)
+    console.log(this.currUser)
     let prvConv=[]
-    if(this.services.currUser.conversations)
-     prvConv=this.services.currUser.conversations;
+    if(this.currUser.conversations)
+     prvConv=this.currUser.conversations;
     let senderprvConnect=[]
-    if(this.services.currUser.connections)
-    senderprvConnect=this.services.currUser.connections;
-    this.services.newConversation({reciverId:userId,senderId:this.services.currUser._id,reciverName:userName,reciverPic:userPic,senderName:this.services.currUser.userName
-    ,senderPic:this.services.currUser.userName,timestamps:Date.now()}).subscribe((res:any)=>{
+    if(this.currUser.connections)
+    senderprvConnect=this.currUser.connections;
+    this.services.newConversation({reciverId:userId,senderId:this.currUser._id,reciverName:userName,reciverPic:userPic,senderName:this.currUser.userName
+    ,senderPic:this.currUser.userName,timestamps:Date.now()}).subscribe((res:any)=>{
       console.log(res)
       prvConv.push(res.converstion._id)
       senderprvConnect.push(userId)
-      this.services.updateUserconnections({conversations:prvConv,connections:senderprvConnect},this.services.currUser._id).subscribe((res:any)=>{
+      this.services.updateUserconnections({conversations:prvConv,connections:senderprvConnect},this.currUser._id).subscribe((res:any)=>{
         console.log(res)
         
         
@@ -125,7 +131,7 @@ this.imgUrl='https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-forei
     {messages.sort((a: { timestamps: number; }, b: { timestamps: number; }) => b.timestamps - a.timestamps);
 
 // Get the last message
-return messages[0].text;}
+return messages[0].text.slice(0, 30);}
 return "";
 
   }
@@ -193,7 +199,7 @@ return "";
 
     this.services.updateUser(formData, this.params._id).subscribe((data: any) => {
       console.log(data);
-      this.services.setCurrUser(data);
+      this.services.setCurrUser(data,this.allUsers);
     });
   }
   getUserProfilePic(userId: string): string {

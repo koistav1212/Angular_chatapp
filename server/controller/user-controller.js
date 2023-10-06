@@ -70,14 +70,16 @@ exports.createUser = async (req, res) => {
             userName,
             emailId,
             password,
-            _id
+            _id,
+            timestamps
         } = req.body;
 
         const user = await userSchema.create({
             userName,
             emailId,
             password,
-            _id
+            _id,
+            timestamps
         })
         res.status(200).json({
             success: true,
@@ -154,11 +156,12 @@ exports.getUserbyID = async (req, res) => {
    
     res.status(200).json({
         success: true,
-        user: "user",
+        type: "user",
         user
     })
    
 }
+
 //update user
 exports.updateconnectionsUser = async (req, res) => {
     const {

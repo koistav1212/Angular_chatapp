@@ -1,0 +1,30 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0;
+    margin: auto;
+}
+@media (max-width: 800px) {
+.container{
+    flex-direction: column;
+}
+
+.mainImg{
+    height: 45vh !important;
+    margin-top: 15% !important;
+}
+.feature-description img{
+    width: 7vw;
+}
+mat-tab-group {
+    width: 90%;
+    margin: auto;
+}
+}
+.mainImg{
+    height: 65vh;
+}
+.feature-description img{
+    width: 15vw;
+}

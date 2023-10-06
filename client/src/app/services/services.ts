@@ -10,7 +10,8 @@ const socketUrl="http://localhost:5000/";
   providedIn: 'root'
 })
 export class services {
-public currUser:any={}
+public currUser:any={};
+public allusers:any={};
 tmpUID:any
   constructor(private http: HttpClient,private afAuth:AngularFireAuth) { 
      
@@ -27,9 +28,20 @@ tmpUID:any
     );
   }
 
-setCurrUser(data)
+setCurrUser(currdata,allusers)
 {
-this.currUser=data
+this.currUser=currdata;
+this.allusers=allusers;
+}
+getstoreduser(){
+  return this.currUser;
+}
+getallstoredUsers(){
+return this.allusers;
+}
+getuserbyId(id:any)
+{ return this.http.get(baseUrl+"getUserbyID/"+id)
+
 }
 addUser(data)
 {
@@ -45,7 +57,7 @@ updateUser(data,id)
   return this.http.post(baseUrl+"updateUserbyID/"+id,data)
 
 }
-getUsers(data:any)
+getallUsers(data:any)
 {
   console.log("service",data)
 return this.http.post(baseUrl+"geAlltUsers",{id:data._id});

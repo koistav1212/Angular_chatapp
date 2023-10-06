@@ -8,20 +8,17 @@
         body {
             margin: 0;
             padding: 0;
-            background: url('https://img.freepik.com/free-vector/illustration-people-with-technology-devices_23-2148459261.jpg') center/cover no-repeat;
-            font-family: Arial, sans-serif;
+           font-family: Arial, sans-serif;
             height: 100vh;
-            overflow: hidden;
+            overflow-y: scroll;
         }
 
         .container {
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: space-around;
             height: 90%;
             width: 90%;
-            padding: 5%;
             text-align: center;
             background-color: rgba(255, 255, 255, 0.65); /* Background with transparency */
         }
@@ -70,28 +67,33 @@
 <body>
     <div class="container">
     <div class="left">
+        <img class="mainImg" src="../../assets/background/chating.png" />
         <h1>Welcome to Our Chat App</h1>
         <p>Connect, chat, and stay in touch with your friends and colleagues.</p>
         <a  routerLink="../login" class="cta-button">Get Started</a>
     </div>
-    <div class="right">
+    <div class="right" >
         <mat-tab-group backgroundColor="transparent" color="warn" >
-            <mat-tab label="Real-Time Chat">
+            <mat-tab label="Real-Time">
               <div class="feature-description">
                 <h2>Real-Time Chat</h2>
+                <img src="https://static-00.iconduck.com/assets.00/socket-io-icon-512x512-8untkuqg.png"/>
                 <p>Enjoy real-time communication with your friends and contacts. Send and receive messages instantly.</p>
               </div>
             </mat-tab>
             <mat-tab label="Group Chat">
               <div class="feature-description">
                 <h2>Group Chat</h2>
+                <img src="https://static.vecteezy.com/system/resources/previews/020/575/803/original/3d-illustration-group-users-with-bubble-chat-png.png" />
+               
                 <p>Create or join groups to chat with multiple friends at once. Collaborate and share in group conversations.</p>
               </div>
             </mat-tab>
-            <mat-tab label="Personal Chat">
+            <mat-tab label="Cross Platform">
               <div class="feature-description">
-                <h2>Personal Chat</h2>
-                <p>Have one-on-one conversations with your friends. Keep your personal chats private and secure.</p>
+                <h2>Cross Platform</h2>
+                <img src="https://cdn-icons-png.flaticon.com/512/10435/10435182.png">
+                 <p>Get your chats in all your devices. As it supports cross platform messaging.</p>
               </div>
             </mat-tab>
           </mat-tab-group>

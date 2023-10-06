@@ -1,33 +1,63 @@
-<div class="profile-container">
-    <div class="profile-card">
-      <div class="profile-picture">
-        <img src="https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png"
-          alt="Profile Picture" />
-        <mat-icon class="edit-icon" (click)="editProfilePicture()">edit</mat-icon>
-      </div>
-      <div class="profile-info">
-        <h2>Group Name</h2>
-        <p>{{conversation.grpName}}</p>
-        <mat-icon class="edit-icon" (click)="editName()">edit</mat-icon>
-      </div>
-      <div class="profile-info">
-        <h2>Group Description</h2>
-        <p>{{conversation.grpDesc}}</p>
-        <mat-icon class="edit-icon" (click)="editAboutMe()">edit</mat-icon>
-      </div>
-      <div class="profile-info">
-        <h2>Created At</h2>
-        <p>Date of Account Creation</p>
-      </div>
-      <div class="profile-info">
-        <h2>Group Members</h2>
-        <div class="scrollable-list">
-          <ul>
-            <li *ngFor="let group of myGroups">{{ group.name }}</li>
-            
-        <mat-icon class="edit-icon" (click)="editGroups()">edit</mat-icon>
-          </ul>
+<div class="backdrop">
+  <div class="scrollable-container">
+    
+    <mat-icon (click)="closeModal();" class="close-icon">cancel</mat-icon>
+
+    <!-- New content -->
+    <div class="profile-container">
+      <div class="profile-card">
+        <div class="profile-picture">
+          <img src="{{conversation.grpPic||'https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png'}}"
+            alt="Profile Picture" />
+        </div>
+        <div class="profile-info">
+          <h2>Group Name</h2>
+          <p>{{ conversation.grpName }}</p>
+        </div>
+        <div class="profile-info">
+          <h2>Group Description</h2>
+          <p>{{ conversation.grpDesc }}</p>
+        </div>
+        <div class="profile-info">
+          <h2>Created At</h2>
+          <p>{{formatTimestamp(conversation.timestamps)}}</p>
+        </div>
+        <div style="display: flex; flex-direction: row;   width: 90%; margin: auto;">
+        
+        <ng-multiselect-dropdown
+        [placeholder]="'Select Users'"
+        [settings]="dropdownSettings"
+        [data]="allUsers"
+        [(ngModel)]="selectedItems"
+        (onSelect)="onItemSelect($event)"
+        (onSelectAll)="onSelectAll($event)"
+      >
+      </ng-multiselect-dropdown>
+      <div class="error-message" *ngIf="!selectedItemsValid">Please select at least one user.</div>
+      <button
+        class="capsule-button"
+        [class.disabled]="!grpNameValid || !selectedItemsValid"
+        (click)="addMember()"
+      >
+        Add Members
+      </button>
+    </div>
+        <div class="profile-info" style="flex-direction: column;">
+          <h2>Group Members</h2>
+          <div class="scrollable-list">
+            <ul>
+              <li *ngFor="let mem of conversation.members">
+                {{ mem.userName }}
+                <mat-icon class="edit-icon" (click)="removeMember(mem._id)">remove_circle</mat-icon>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+<ng-template #userlist let-quest>
+  <app-user-list  ></app-user-list>
+</ng-template>

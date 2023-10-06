@@ -133,14 +133,14 @@ console.log(req.body)
             message: "No users found"
         })
     }
-
+else{
    
     res.status(200).json({
         success: true,
         user: "user",
         userList
     })
-   
+  }
 }
 exports.getUserbyID = async (req, res) => {
 

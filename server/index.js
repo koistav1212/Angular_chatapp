@@ -44,7 +44,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // >> StrictQuery
 mongoose.set("strictQuery", false);
 // const url = "mongodb+srv://koustavkanakapd:abcd123@cluster0.cyuge9a.mongodb.net/?retryWrites=true&w=majority";
-const url = "mongodb://127.0.0.1:27017";
+const url = "mongodb+srv://koustavkanakapd:abcd123@cluster0.wu6hsx9.mongodb.net/";
 // "mongodb+srv://koustavkanakapd:abcd123@cluster0.cyuge9a.mongodb.net/?retryWrites=true&w=majority";
 //app.use(cors({origin: '*'}));
 app.all("/", (req, res) => {

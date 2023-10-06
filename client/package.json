@@ -5,6 +5,7 @@
   "main": "karma.conf.js",
   "scripts": {
     "start": "ng serve",
+    "build": "cd client && npm install && npm run build --prod",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

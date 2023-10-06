@@ -54,13 +54,15 @@
           <!-- <div id="noConversations">All chats are archived</div> -->
 
           <div class="conversation" *ngFor="let user of !searchText ? allUsers : filteredConversations">
-            <div class="picture">
-              <img src="../../assets/images/noPic.svg" />
+            <div class="picture" *ngIf="!currUser.connections.includes(user._id)">
+              <img  [src]="getUserProfilePic(user._id) || '../../assets/images/noPic.svg'"/>
             </div>
-            <div class="content">
+            <div class="content" *ngIf="!currUser.connections.includes(user._id)">
               <div class="conversationHeader">
                 <div class="name">{{ user.userName }}</div>
-                <button (click)="connect(user._id,user.userName,user.userName)"></button>
+                <button (click)="connect(user._id,user.userName,user.userName)">
+                  <mat-icon>add</mat-icon>
+                </button>
               </div>
             </div>
           </div>

@@ -23,11 +23,11 @@
           <p>{{formatTimestamp(user.timestamps)}}</p>
         </div>
         
-        <div class="profile-info">
-          <h2>Common Groups</h2>
+        <div class="profile-info" style="display: flex;flex-direction: column;">
+          <h2>All Groups</h2>
           <div class="scrollable-list">
             <ul>
-              <li *ngFor="let mem of user.rooms">
+              <li *ngFor="let mem of allgroups">
                 {{ mem.grpName }}
                 
               </li>

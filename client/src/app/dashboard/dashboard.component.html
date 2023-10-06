@@ -3,7 +3,7 @@
     (conversationClicked)="onConversationSelected($event)"
   ></app-sidebar>
   <button  mat-fab class="fab-button" (click)="openModal(userlist)" [ngStyle]="hideMatIcon ? { 'display': 'none' } : {'display':'block'}">
-    <mat-icon id="fabicon"  >add</mat-icon>
+    <i id="fabicon" class="fa-solid fa-user-group"></i>
   </button>
   <div id="chat" [ngStyle]="!hideMatIcon && screenSize ? { 'display': 'none' } : {'display':'block'}">
     <div id="chatPlaceholder" *ngIf="!conversation.members">

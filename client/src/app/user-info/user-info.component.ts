@@ -21,7 +21,7 @@ export class UserInfoComponent {
 
   ngOnInit(): void {
   this.getuserByid();
-  this.getAllgroups();
+  
 
   }
 
@@ -29,6 +29,7 @@ getuserByid()
 {
   this.services.getuserbyId(this.userId).subscribe((res:any)=>{
     this.user=res.user;
+    this.getAllgroups();
   })
 }
   getAllgroups()

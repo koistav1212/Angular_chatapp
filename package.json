@@ -6,9 +6,13 @@
         "node":"18.12.0"
     },
     "scripts": {
-        "start": "ng serve",
-        "build": "npm install && ng build --prod",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "npm run start-client",
+        "build": "npm run build-client && npm run build-server",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start-client": "cd client && npm start",
+        "build-client": "cd client && npm install && ng build",
+        "build-server": "cd server && npm install && npm run build"
       }
+      
       
 }

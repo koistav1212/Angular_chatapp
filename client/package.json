@@ -5,9 +5,10 @@
   "main": "karma.conf.js",
   "scripts": {
     "start": "ng serve",
-    "build": "npm install && ng build",
+    "build": "npm install && ng build ",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
+  
   ,
   
   "author": "",

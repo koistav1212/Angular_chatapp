@@ -5,6 +5,9 @@
     padding: 0;
     margin: auto;
 }
+mat-tab-group{
+    width: 600px;
+}
 @media (max-width: 800px) {
 .container{
     flex-direction: column;

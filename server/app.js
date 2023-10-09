@@ -26,9 +26,11 @@ app.use(function (req, res, next) {
 });
 const corsOptions = {
   origin: 'https://angular-chatapp.onrender.com',
-  methods: ['GET', 'POST','OPTIONS', 'PUT', 'PATCH', 'DELETE'], // Add the HTTP methods you need
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Add the HTTP methods you need
   credentials: true, // Set to true if you need to include cookies or HTTP credentials
 };
+
+// Use the cors middleware with your configuration
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -80,13 +82,12 @@ mongoose
   });
   
 
-  const server = require('https').createServer(app); // Use 'https' module
-  const io = require('socket.io')(server);
-  
-  server.listen(5000); // Use port 443 for HTTPS
-  // Set the allowed origins
 
-  
+
+  var server = require('http').createServer(app);
+  var io = require('socket.io')(server);
+  const port = process.env.PORT || 5000;
+  server.listen(port);
   
   io.on('connection', (socket) => {
     console.log('a user connected');

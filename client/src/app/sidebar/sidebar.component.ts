@@ -59,10 +59,10 @@ export class SidebarComponent implements OnInit {
   this.getAllUsers(res.user)
   this.getAllConversation();
   this.getAllGroups();
-  if(res.user.profilePic.length>0)
+  if(res.user.profilePic)
    this.imgUrl=res.user.profilePic
 else
-this.imgUrl='https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png';
+this.imgUrl='../../assets/images/default_pic.png';
  })
    
   }

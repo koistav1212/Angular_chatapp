@@ -76,12 +76,14 @@ mongoose
   });
   
 
-
-
-  var server = require('http').createServer(app);
-  var io = require('socket.io')(server);
+  const server = require('https').createServer(app); // Use 'https' module
+  const io = require('socket.io')(server);
   
-  server.listen(5000);
+  server.listen(5000); // Use port 443 for HTTPS
+  
+  io.origins('https://angular-chatapp.onrender.com:*'); // Set the allowed origins
+
+  
   
   io.on('connection', (socket) => {
     console.log('a user connected');

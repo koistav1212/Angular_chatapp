@@ -36,11 +36,14 @@ const routes=require("./routes/routes")
 // use API routes
 app.use("/", user);
 app.use("/",routes)
-
+app.use(express.static(__dirname.replace(/\\/g, "/") + '/view/dist'));
+writeENV();
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // use API routes
 // router(app);
-
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, '/view/dist/index.html'));
+});
 // >> StrictQuery
 mongoose.set("strictQuery", false);
 // const url = "mongodb+srv://koustavkanakapd:abcd123@cluster0.cyuge9a.mongodb.net/?retryWrites=true&w=majority";
@@ -91,3 +94,22 @@ mongoose
     });
 });
   
+
+function writeENV() {
+  if (process.env.NODE_ENV) {
+      let content = "(function (window) {" +
+          "window.__env = window.__env || {};" +
+          "window.__env.SERVER_URL = '" + process.env.SERVER_URL + "';" +
+          "}(this));"
+      fs.writeFile(path.join(__dirname.replace(/\\/g, "/"), '/view/dist/assets/environments/env.js'), content, (err) => {
+          if (err) throw err;
+          console.log('SERVER_URL :', process.env.SERVER_URL)
+          console.log('Successfully saved env.js file.');
+      });
+  }
+}
+
+app.use(sendSpaFileIfUnmatched);
+function sendSpaFileIfUnmatched(req, res) {
+  res.sendFile("/view/dist/index.html", { root: '.' });
+}

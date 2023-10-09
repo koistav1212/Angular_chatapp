@@ -199,6 +199,7 @@ overflow-y: hidden;
   max-width: 340px;
   width: 100%;
   margin: auto;
+  margin-top: 10px;
 }
 
 /* Add this CSS to your styles.css or the component's CSS file */
@@ -208,8 +209,8 @@ overflow-y: hidden;
 }
 
 .profile-picture img {
-  width: 275px;
-  height: 275px;
+  width: 200px;
+  height: 200px;
   display: block;
   margin: auto;
   border-radius: 50%; /* Make the image circular */
@@ -247,7 +248,7 @@ overflow-y: hidden;
 }
 
 .scrollable-list {
-  max-height: 150px;
+  max-height: 140px;
   overflow-y: auto;
   border: 1px solid #ccc;
   padding: 10px;
@@ -265,6 +266,21 @@ overflow-y: hidden;
     }
   }
   
+}
+.profile-info textarea{
+  width: 90%;
+  border: none;
+  border-radius: 20px;
+  height: 100%;
+  padding: 10px;
+  color: #fff;
+  font-size: 20px;
+  height: 25px;
+  background: rgba(255,255,255,.1);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  outline: none;
+  box-shadow: 0 0 3px #efefef4d;
 }
 ::ng-deep .mat-tab-label {
   min-width: 25px !important;

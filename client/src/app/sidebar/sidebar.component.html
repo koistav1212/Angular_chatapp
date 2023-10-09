@@ -90,12 +90,12 @@
             <div class="profile-info">
               <h2>Name</h2>
               <textarea [(ngModel)]="params.userName"></textarea>
-              <button class="edit-button" >Edit</button>
+            
             </div>
             <div class="profile-info">
               <h2>About Me</h2>
               <textarea [(ngModel)]="params.about"></textarea>
-              <mat-icon class="edit-icon">edit</mat-icon>
+              
             </div>
             <div class="profile-info">
               <h2>Created At</h2>
@@ -107,7 +107,7 @@
                 <ul>
                   <li *ngFor="let group of myGroups">{{ group.name }}</li>
                 </ul>
-              </div><mat-icon class="edit-icon">edit</mat-icon>
+              </div>
             </div>
             <button class="capsule-button" (click)="submitStudent()">Save Changes</button>
           </div>

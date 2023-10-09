@@ -36,8 +36,8 @@ const routes=require("./routes/routes")
 // use API routes
 app.use("/", user);
 app.use("/",routes)
-app.use(express.static(__dirname.replace(/\\/g, "/") + '/view/dist'));
-writeENV();
+// app.use(express.static(__dirname.replace(/\\/g, "/") + '/view/dist'));
+// writeENV();
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // use API routes
 // router(app);

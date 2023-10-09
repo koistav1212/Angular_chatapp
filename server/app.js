@@ -24,8 +24,12 @@ app.use(function (req, res, next) {
   // Pass to next layer of middleware
   next();
 });
-
-app.use(cors({origin: '*'}));
+const corsOptions = {
+  origin: 'https://angular-chatapp.onrender.com',
+  methods: ['GET', 'POST','OPTIONS', 'PUT', 'PATCH', 'DELETE'], // Add the HTTP methods you need
+  credentials: true, // Set to true if you need to include cookies or HTTP credentials
+};
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // Set EJS as the template engine
@@ -80,8 +84,7 @@ mongoose
   const io = require('socket.io')(server);
   
   server.listen(5000); // Use port 443 for HTTPS
-  
-  io.origins('https://angular-chatapp.onrender.com:*'); // Set the allowed origins
+  // Set the allowed origins
 
   
   

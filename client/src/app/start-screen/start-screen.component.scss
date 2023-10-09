@@ -25,6 +25,16 @@ mat-tab-group {
     margin: auto;
 }
 }
+
+@media (max-width: 600px) {
+    
+.mainImg{
+    margin-top: 20% !important;
+}
+mat-tab-group{
+    width: 80%;
+}
+}
 .mainImg{
     height: 65vh;
 }

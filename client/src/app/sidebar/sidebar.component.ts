@@ -84,6 +84,11 @@ this.imgUrl='../../assets/images/default_pic.png';
       this.conversations=res
     })  
   }
+  getGroupbyID(grpID)
+  {
+    const grp = this.conversations.find(u => u._id === grpID);
+    return grp ? grp.grpName : 'New Group';
+  }
   getAllGroups()
   {
     

@@ -1,4 +1,4 @@
-<div id="sidebar">
+<div id="sidebar" style="overflow-y: scroll;">
   <div id="row1">
     <mat-tab-group [@.disabled]="true" backgroundColor="transparent" color="warn">
       <mat-tab label="Messages">
@@ -105,16 +105,17 @@
               <h2>My Groups</h2>
               <div class="scrollable-list">
                 <ul>
-                  <li *ngFor="let group of myGroups">{{ group.name }}</li>
+                  <li *ngFor="let group of currUser.rooms">{{ getGroupbyID(group) }}</li>
                 </ul>
               </div>
             </div>
             <button class="capsule-button" (click)="submitStudent()">Save Changes</button>
           </div>
         </div>
-        
-
-
+        <div style="width: 100%; text-align: center; margin: 20px 0;">
+          <h2>Scan through your mobile App for login</h2>
+        <qrcode style="margin: auto;" [qrdata]="currUser._id" [width]="250" [errorCorrectionLevel]="'M'"></qrcode>
+      </div>
       </mat-tab>
     </mat-tab-group>
 

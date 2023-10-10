@@ -26,6 +26,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { GroupInfoComponent } from './group-info/group-info.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { StartScreenComponent } from './start-screen/start-screen.component';
+import { QRCodeModule } from 'angularx-qrcode';
 @NgModule({
   declarations: [AppComponent, SidebarComponent, ChatComponent, LoginPageComponent,
      DashboardComponent, UserListComponent, GroupInfoComponent, UserInfoComponent, StartScreenComponent],
@@ -41,7 +42,7 @@ import { StartScreenComponent } from './start-screen/start-screen.component';
     AngularFireAuthModule,
     MatButtonModule,
     MatIconModule,
-
+    QRCodeModule 
   ],
   providers: [],
   bootstrap: [AppComponent],
